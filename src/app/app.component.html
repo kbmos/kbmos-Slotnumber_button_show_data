@@ -1,0 +1,127 @@
+
+
+<h1>PVO HAPPY NEW YEAR 2022</h1>
+<!-- <div class="parts">
+	<div class="part">
+
+		<ul
+			class="items"
+			[style.transform]="( 'translateY( -' + ( descriptionIndex * 85 ) + 'px )' )">
+			<li
+				*ngFor="let description of descriptions ; let i = index ;"
+				class="item"
+				[class.selected]="( i === descriptionIndex )">
+				{{ description }}
+			</li>
+		</ul>
+	</div>
+</div> -->
+
+<!-- <div class="parts">
+	<div class="part">
+
+		<ul
+			class="items"
+			[style.transform]="( 'translateY( -' + ( thingIndex * 85 ) + 'px )' )">
+			<li
+				*ngFor="let thing of things ; let i = index ;"
+				class="item"
+				[class.selected]="( i === thingIndex)">
+				{{ thing }}
+			</li>
+		</ul>
+
+	</div>
+</div> -->
+<!-- <div class="row">
+  <div class="col-10">
+    <img  class="images" src="../assets/images/gift-box-icon-png-53.png"/>
+  </div>
+  <div class="iconset col-1">
+
+  </div>
+</div>
+
+<div class="actions w-full">
+
+  <button class="btn btn-primary" [disabled]="isLoading" (click)="generateName()"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading, 'fa-check': !isLoading}"></i> Generate Sprint Name</button>
+</div> -->
+
+
+
+<div class="parts">
+	<div class="part" style="width: 100px;">
+      <ul
+        class="items"
+        [style.transform]="( 'translateY( -' + ( descriptionIndex * 85 ) + 'px )' )">
+        <li
+          *ngFor="let description of descriptions ; let i = index ;"
+          class="item"
+          [class.selected]="( i === descriptionIndex )">
+          {{ description }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="part" style="width: 100px;">
+
+      <ul
+        class="items"
+        [style.transform]="( 'translateY( -' + ( descriptionIndex * 85 ) + 'px )' )">
+        <li
+          *ngFor="let description of descriptions ; let i = index ;"
+          class="item"
+          [class.selected]="( i === descriptionIndex )">
+          {{ description }}
+        </li>
+      </ul>
+    </div>
+  <div class="part" style="width: 100px;">
+
+    <ul
+      class="items"
+      [style.transform]="( 'translateY( -' + ( descriptionIndex * 85 ) + 'px )' )">
+      <li
+        *ngFor="let description of descriptions ; let i = index ;"
+        class="item"
+        [class.selected]="( i === descriptionIndex )">
+        {{ description }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="part" style="width: 100px;">
+
+    <ul
+      class="items"
+      [style.transform]="( 'translateY( -' + ( descriptionIndex * 85 ) + 'px )' )">
+      <li
+        *ngFor="let description of descriptions ; let i = index ;"
+        class="item"
+        [class.selected]="( i === descriptionIndex )">
+        {{ description }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="part" style="width: 100px;">
+
+    <ul
+      class="items"
+      [style.transform]="( 'translateY( -' + ( descriptionIndex * 85 ) + 'px )' )">
+      <li
+        *ngFor="let description of descriptions ; let i = index ;"
+        class="item"
+        [class.selected]="( i === descriptionIndex )">
+        {{ description }}
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="length">
+	Sprint name is {{ sprintName.length }} characters
+</div>
+<div class="actions w-full">
+  <button class="btn btn-primary" [disabled]="isLoading" (click)="generateName()"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading, 'fa-check': !isLoading}"></i> Generate Sprint Name</button>
+</div>
+
