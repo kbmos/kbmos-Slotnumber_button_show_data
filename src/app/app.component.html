@@ -52,13 +52,13 @@
 <div class="parts">
 	<div class="part" style="width: 100px;">
       <ul
-        class="items"
-        [style.transform]="( 'translateY( -' + ( descriptionIndex * 85 ) + 'px )' )">
+        class="items1"
+        [style.transform]="( 'translateY( -' + ( slot_index_1 * 85 ) + 'px )' )">
         <li
-          *ngFor="let description of descriptions ; let i = index ;"
+          *ngFor="let slot1 of slot_1 ; let i = index ;"
           class="item"
-          [class.selected]="( i === descriptionIndex )">
-          {{ description }}
+          [class.selected]="( i === slot_index_1 )">
+          {{ slot1 }}
         </li>
       </ul>
     </div>
@@ -66,26 +66,26 @@
     <div class="part" style="width: 100px;">
 
       <ul
-        class="items"
-        [style.transform]="( 'translateY( -' + ( descriptionIndex * 85 ) + 'px )' )">
+        class="items2"
+        [style.transform]="( 'translateY( -' + ( slot_index_2 * 85 ) + 'px )' )">
         <li
-          *ngFor="let description of descriptions ; let i = index ;"
+          *ngFor="let slot2 of slot_2 ; let i = index ;"
           class="item"
-          [class.selected]="( i === descriptionIndex )">
-          {{ description }}
+          [class.selected]="( i === slot_index_2 )">
+          {{ slot2 }}
         </li>
       </ul>
     </div>
   <div class="part" style="width: 100px;">
 
     <ul
-      class="items"
-      [style.transform]="( 'translateY( -' + ( descriptionIndex * 85 ) + 'px )' )">
+      class="items3"
+      [style.transform]="( 'translateY( -' + ( slot_index_3 * 85 ) + 'px )' )">
       <li
-        *ngFor="let description of descriptions ; let i = index ;"
+        *ngFor="let slot3 of slot_3 ; let i = index ;"
         class="item"
-        [class.selected]="( i === descriptionIndex )">
-        {{ description }}
+        [class.selected]="( i === slot_index_3 )">
+        {{ slot3 }}
       </li>
     </ul>
   </div>
@@ -93,13 +93,13 @@
   <div class="part" style="width: 100px;">
 
     <ul
-      class="items"
-      [style.transform]="( 'translateY( -' + ( descriptionIndex * 85 ) + 'px )' )">
+      class="items4"
+      [style.transform]="( 'translateY( -' + ( slot_index_4 * 85 ) + 'px )' )">
       <li
-        *ngFor="let description of descriptions ; let i = index ;"
+        *ngFor="let slot4 of slot_4 ; let i = index ;"
         class="item"
-        [class.selected]="( i === descriptionIndex )">
-        {{ description }}
+        [class.selected]="( i === slot_index_4 )">
+        {{ slot4 }}
       </li>
     </ul>
   </div>
@@ -107,13 +107,13 @@
   <div class="part" style="width: 100px;">
 
     <ul
-      class="items"
-      [style.transform]="( 'translateY( -' + ( descriptionIndex * 85 ) + 'px )' )">
+      class="items5"
+      [style.transform]="( 'translateY( -' + ( slot_index_5 * 85 ) + 'px )' )">
       <li
-        *ngFor="let description of descriptions ; let i = index ;"
+        *ngFor="let slot5 of slot_5 ; let i = index ;"
         class="item"
-        [class.selected]="( i === descriptionIndex )">
-        {{ description }}
+        [class.selected]="( i === slot_index_5 )">
+        {{ slot5 }}
       </li>
     </ul>
   </div>

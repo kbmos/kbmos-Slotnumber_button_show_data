@@ -5,6 +5,11 @@ import { HttpClient } from '@angular/common/http';
 import { descriptions } from "./dictionaries/descriptions";
 import { things } from "./dictionaries/things";
 import { ThrowStmt } from "@angular/compiler";
+import { slot_1s } from "./dictionaries/slot_1s";
+import { slot_2s } from "./dictionaries/slot_2s";
+import { slot_3s } from "./dictionaries/slot_3s";
+import { slot_4s } from "./dictionaries/slot_4s";
+import { slot_5s } from "./dictionaries/slot_5s";
 
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
@@ -24,21 +29,25 @@ export class AppComponent {
 	public data_server:any;
   public switchChange:boolean;
 
-  public slot_1s: string[];
+  public slot_1: string[];
   public slot_index_1;
+  public slot_index_1_before:number;
 
-  public slot_2s: string[];
+  public slot_2: string[];
   public slot_index_2;
+  public slot_index_2_before:number;
 
-  public slot_3s: string[];
+  public slot_3: string[];
   public slot_index_3;
+  public slot_index_3_before:number;
 
-  public slot_4s: string[];
+  public slot_4: string[];
   public slot_index_4;
+  public slot_index_4_before:number;
 
-  public slot_5s: string[];
+  public slot_5: string[];
   public slot_index_5;
-
+  public slot_index_5_before:number;
 
 	test: string = "";
   public Displacement:number;
@@ -56,16 +65,21 @@ export class AppComponent {
     this.switchChange=false;
     this.descriptionIndex_before=0;
 
-    this.slot_1s=descriptions;
+    this.slot_1=slot_1s;
     this.slot_index_1=0;
-    this.slot_2s=descriptions;
+    this.slot_index_1_before=0;
+    this.slot_2=slot_2s;
     this.slot_index_2=0;
-    this.slot_3s=descriptions;
+    this.slot_index_2_before=0;
+    this.slot_3=slot_3s;
     this.slot_index_3=0;
-    this.slot_4s=descriptions;
+    this.slot_index_3_before=0;
+    this.slot_4=slot_4s;
     this.slot_index_4=0;
-    this.slot_5s=descriptions;
+    this.slot_index_4_before=0;
+    this.slot_5=slot_5s;
     this.slot_index_5=0;
+    this.slot_index_5_before=0;
 
 		// this.generateName();
     // var gotItemIndex =new Array();
@@ -74,22 +88,23 @@ export class AppComponent {
 
 
   ngOnInit() {
-  this.slot_1s.push("7");
-  this.slot_2s.push("7");
-  this.slot_3s.push("7");
-  this.slot_4s.push("7");
-  this.slot_5s.push("7");
+  this.slot_1.push("?");
+  this.slot_2.push("?");
+  this.slot_3.push("?");
+  this.slot_4.push("?");
+  this.slot_5.push("?");
   for(var z=0;z<2;z++){
     for(var y=0;y<100;y++){
       for(var x=0;x<10;x++){
-        this.slot_1s.push(""+x);
-        this.slot_2s.push(""+x);
-        this.slot_3s.push(""+x);
-        this.slot_4s.push(""+x);
-        this.slot_5s.push(""+x);
+        this.slot_1.push(""+x);
+        this.slot_2.push(""+x);
+        this.slot_3.push(""+x);
+        this.slot_4.push(""+x);
+        this.slot_5.push(""+x);
       }
     }
   }
+  console.log(this.slot_1);
   this.http.get(`http://192.0.0.46:8095/api/employee/employeelist`, {}).subscribe((res:any) =>{
   const data:any = res;
 	this.data_server = data;
@@ -111,7 +126,7 @@ export class AppComponent {
               this.things.push(data[x]['depT_CODE']);
           }
        }
-          console.log("All data:",this.descriptions);
+          // console.log("All data:",this.slot_1);
 
 
    });
@@ -132,24 +147,42 @@ export class AppComponent {
     this.isLoading = true;
     this.descriptionIndex_before=this.descriptionIndex; //เก็บค่าตัว current index ก่อนมันเปลี่ยนค่าไปค่าที่ random ได้
 		this.descriptionIndex = this.nextIndex( this.descriptionIndex, this.descriptions ); //สุ่มหาตัวเลขที่แรนด้อมถัดไป
-    console.log("descriptionIndex After return func:",this.descriptionIndex);
+
+    this.slot_index_1 = this.checkrandom0(( Math.floor( Math.random() * 9 ) ));
+    this.slot_index_2 = this.checkrandom0(( Math.floor( Math.random() * 9 ) ));
+    this.slot_index_3 = this.checkrandom0(( Math.floor( Math.random() * 9 ) ));
+    this.slot_index_4 = this.checkrandom0(( Math.floor( Math.random() * 9 ) ));
+    this.slot_index_5 = this.checkrandom0(( Math.floor( Math.random() * 9 ) ));
+    console.log("slot1: ["+this.slot_index_1+"]slot2: ["+this.slot_index_2+"] Slot3: ["+this.slot_index_3+"] slot4: ["+this.slot_index_4+" ] slot5: ["+this.slot_index_5+"]");
+    this.slot_index_1=this.setIndexslot(this.slot_index_1_before,this.slot_index_1);
+    this.slot_index_2=this.setIndexslot(this.slot_index_2_before,this.slot_index_2);
+    this.slot_index_3=this.setIndexslot(this.slot_index_3_before,this.slot_index_3);
+    this.slot_index_4=this.setIndexslot(this.slot_index_4_before,this.slot_index_4);
+    this.slot_index_5=this.setIndexslot(this.slot_index_5_before,this.slot_index_5);
+
+    if(this.switchChange==false){
+
+      this.switchChange==false
+    }
+    // console.log(slot_1s);
+    // console.log("descriptionIndex After return func:",this.descriptionIndex);
     // this.descriptionIndex=1;
     this.Displacement= this.descriptionIndex-this.descriptionIndex_before; //หาค่ากระจัดระหว่างระยะห่างอันแรก กับ อันที่แรนด้อมได้ใหม่่
     this.Displacement=Math.abs(this.Displacement);
 
-    console.log("Displacement= "+this.Displacement+" descriptionIndex :"+(this.descriptionIndex)+" descriptionIndex_before: "+this.descriptionIndex_before+" Now this.switchChange = "+this.switchChange);
+    // console.log("Displacement= "+this.Displacement+" descriptionIndex :"+(this.descriptionIndex)+" descriptionIndex_before: "+this.descriptionIndex_before+" Now this.switchChange = "+this.switchChange);
 
     if( this.Displacement< 500 && this.switchChange==false){
-      console.log("descriptionIndex < 200 then change to :",this.descriptionIndex+this.data_server.length+ "switchChange= true ");
+      // console.log("descriptionIndex < 200 then change to :",this.descriptionIndex+this.data_server.length+ "switchChange= true ");
       this.descriptionIndex+=this.data_server.length;
       this.switchChange=true;
       // this.descriptionIndex+= this.descriptions.length;
       // console.log("");
     }
     else if( this.Displacement< 500 && this.switchChange==true){
-      console.log("descriptionIndex < 200 then change to :",this.descriptionIndex-this.data_server.length+"switchChange= false ");
+      // console.log("descriptionIndex < 200 then change to :",this.descriptionIndex-this.data_server.length+"switchChange= false ");
       this.descriptionIndex=this.descriptionIndex-this.data_server.length;
-      console.log("descriptionIndex LastChange : ",this.descriptionIndex);
+      // console.log("descriptionIndex LastChange : ",this.descriptionIndex);
       this.switchChange=false;
       // this.descriptionIndex+= this.descriptions.length;
       // console.log("");
@@ -178,7 +211,7 @@ export class AppComponent {
 		);
 		this.shareSprintNameWithUser( this.sprintName ); //แสดง data ใน Log
     setTimeout(() => {
-      console.log("Waiting")
+      // console.log("Waiting")
       this.isLoading=false;
       this.playAudio_End();
     }, 6500)
@@ -186,7 +219,12 @@ export class AppComponent {
 
 
 	}
-
+  checkrandom0(num:number){
+    // if(num==0)
+    //   return 1;
+    // else
+      return num;
+  }
   public playAudio(){
     let audio = new Audio();
     audio.src = "../assets/sounds/slot-machine-sound-effect (2).mp3";
@@ -200,7 +238,20 @@ export class AppComponent {
     audio.play();
   }
 
+  public setIndexslot(currentIndex:number,data : number){
 
+    if(currentIndex===0){
+      return data+1991
+    }
+    else if(this.switchChange==false){
+
+      return currentIndex
+    }
+    else {
+      return currentIndex
+    }
+    // return currentIndex;
+  }
 	// public generate2() : void {
 	// 	for(var x=0 ;x< this.data_loop.length;x++) {
 	// 		this.test = this.data_loop[x].name;
@@ -265,7 +316,7 @@ export class AppComponent {
 
 	// I return a random index for selection within the given collection.
 	private nextIndex( currentIndex: number, collection: any[] ) : number {
-		console.log("Current Index",currentIndex)
+		// console.log("Current Index",currentIndex)
 		var nextIndex = currentIndex;
 		var length = this.data_server.length;
     // // var length = collection.length;
@@ -276,13 +327,13 @@ export class AppComponent {
 		while ( nextIndex === currentIndex ) { //หมุนไปหาค่าที่กำหนด
 			// console.log("Loop.........................");
 			nextIndex = ( Math.floor( Math.random() * length ) );
-      console.log("User Index win : ",nextIndex);
+      // console.log("User Index win : ",nextIndex);
       if(nextIndex==0){
         nextIndex=1;
       }
       else if(this.switchChange==true){
         nextIndex+=(this.data_server.length);
-        console.log("Real Current Index: "+nextIndex);
+        // console.log("Real Current Index: "+nextIndex);
       }
 
 
