@@ -20,6 +20,9 @@ import { slot_5s } from "./dictionaries/slot_5s";
 	templateUrl: "./app.component.html"
 })
 export class AppComponent {
+  public luckyUser_detail:any;
+  public department:string="";
+  public visibleState:boolean=true;
   public isLoading: boolean;
 	public descriptionIndex: number;
 	public descriptions: string[];
@@ -28,7 +31,7 @@ export class AppComponent {
 	public things: string[];
 	public data_server:any;
   public switchChange:boolean;
-
+  public UserData:string="";
   public slot_1: string[];
   public slot_index_1;
   public slot_index_1_before:number;
@@ -137,17 +140,33 @@ export class AppComponent {
 	// ---
 
 	// I generate the next Sprint Name by randomly selecting a Description and a Thing
-	// and then joining the two values.
+	// and then joining the two values.\
+  public getLuckyUser(){
+    this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyDraw`, {}).subscribe((res:any) =>{
+      console.log("Data Lucky Uer : ",res);
+    return res;
+    });
+  }
 	public generateName() : void {
     setTimeout(() => {
       this.playAudio();
     }, 500)
-
+    this.luckyUser_detail=this.getLuckyUser();
+    this.visibleState=true;
     console.log("this.isLoading = true");
     this.isLoading = true;
     this.descriptionIndex_before=this.descriptionIndex; //เก็บค่าตัว current index ก่อนมันเปลี่ยนค่าไปค่าที่ random ได้
 		this.descriptionIndex = this.nextIndex( this.descriptionIndex, this.descriptions ); //สุ่มหาตัวเลขที่แรนด้อมถัดไป
+    this.thingIndex = 	this.descriptionIndex;
+    console.log(descriptions);
+    this.UserData=descriptions[this.descriptionIndex];
+    this.department=things[this.thingIndex];
 
+    this.slot_index_1_before=this.slot_index_1;
+    this.slot_index_2_before=this.slot_index_2;
+    this.slot_index_3_before=this.slot_index_3;
+    this.slot_index_4_before=this.slot_index_4;
+    this.slot_index_5_before=this.slot_index_5;
     this.slot_index_1 = this.checkrandom0(( Math.floor( Math.random() * 9 ) ));
     this.slot_index_2 = this.checkrandom0(( Math.floor( Math.random() * 9 ) ));
     this.slot_index_3 = this.checkrandom0(( Math.floor( Math.random() * 9 ) ));
@@ -158,36 +177,33 @@ export class AppComponent {
     this.slot_index_2=this.setIndexslot(this.slot_index_2_before,this.slot_index_2);
     this.slot_index_3=this.setIndexslot(this.slot_index_3_before,this.slot_index_3);
     this.slot_index_4=this.setIndexslot(this.slot_index_4_before,this.slot_index_4);
-    this.slot_index_5=this.setIndexslot(this.slot_index_5_before,this.slot_index_5);
+    this.slot_index_5=this.setIndexslot(this.slot_index_5_before,this.slot_index_5,true);
+    console.log("slot1 Index: ["+this.slot_index_1+"]slot2 Index: ["+this.slot_index_2+"] Slot3 Index: ["+this.slot_index_3+"] slot4 Index: ["+this.slot_index_4+" ] slot5 Index: ["+this.slot_index_5+"]");
 
-    if(this.switchChange==false){
-
-      this.switchChange==false
-    }
     // console.log(slot_1s);
     // console.log("descriptionIndex After return func:",this.descriptionIndex);
     // this.descriptionIndex=1;
-    this.Displacement= this.descriptionIndex-this.descriptionIndex_before; //หาค่ากระจัดระหว่างระยะห่างอันแรก กับ อันที่แรนด้อมได้ใหม่่
-    this.Displacement=Math.abs(this.Displacement);
+    // this.Displacement= this.descriptionIndex-this.descriptionIndex_before; //หาค่ากระจัดระหว่างระยะห่างอันแรก กับ อันที่แรนด้อมได้ใหม่่
+    // this.Displacement=Math.abs(this.Displacement);
 
-    // console.log("Displacement= "+this.Displacement+" descriptionIndex :"+(this.descriptionIndex)+" descriptionIndex_before: "+this.descriptionIndex_before+" Now this.switchChange = "+this.switchChange);
+    // // console.log("Displacement= "+this.Displacement+" descriptionIndex :"+(this.descriptionIndex)+" descriptionIndex_before: "+this.descriptionIndex_before+" Now this.switchChange = "+this.switchChange);
 
-    if( this.Displacement< 500 && this.switchChange==false){
-      // console.log("descriptionIndex < 200 then change to :",this.descriptionIndex+this.data_server.length+ "switchChange= true ");
-      this.descriptionIndex+=this.data_server.length;
-      this.switchChange=true;
-      // this.descriptionIndex+= this.descriptions.length;
-      // console.log("");
-    }
-    else if( this.Displacement< 500 && this.switchChange==true){
-      // console.log("descriptionIndex < 200 then change to :",this.descriptionIndex-this.data_server.length+"switchChange= false ");
-      this.descriptionIndex=this.descriptionIndex-this.data_server.length;
-      // console.log("descriptionIndex LastChange : ",this.descriptionIndex);
-      this.switchChange=false;
-      // this.descriptionIndex+= this.descriptions.length;
-      // console.log("");
-    }
-    this.thingIndex = 	this.descriptionIndex;
+    // if( this.Displacement< 500 && this.switchChange==false){
+    //   // console.log("descriptionIndex < 200 then change to :",this.descriptionIndex+this.data_server.length+ "switchChange= true ");
+    //   this.descriptionIndex+=this.data_server.length;
+    //   // this.switchChange=true;
+    //   // this.descriptionIndex+= this.descriptions.length;
+    //   // console.log("");
+    // }
+    // else if( this.Displacement< 500 && this.switchChange==true){
+    //   // console.log("descriptionIndex < 200 then change to :",this.descriptionIndex-this.data_server.length+"switchChange= false ");
+    //   this.descriptionIndex=this.descriptionIndex-this.data_server.length;
+    //   // console.log("descriptionIndex LastChange : ",this.descriptionIndex);
+    //   // this.switchChange=false;
+    //   // this.descriptionIndex+= this.descriptions.length;
+    //   // console.log("");
+    // }
+    // this.thingIndex = 	this.descriptionIndex;
 
 
     // console.log("Description length : "+this.descriptions.length," things length :"+this.things.length);
@@ -197,6 +213,7 @@ export class AppComponent {
     //   this.descriptionIndex++;
     //   this.thingIndex++;
     // }
+
     if(this.descriptionIndex>this.data_server.length)
       this.gotItemIndex.push(this.descriptionIndex-this.data_server.length-1);
     else
@@ -213,8 +230,9 @@ export class AppComponent {
     setTimeout(() => {
       // console.log("Waiting")
       this.isLoading=false;
+      this.visibleState=false;
       this.playAudio_End();
-    }, 6500)
+    }, 12400)
     console.log("this.isLoading = false");
 
 
@@ -238,17 +256,23 @@ export class AppComponent {
     audio.play();
   }
 
-  public setIndexslot(currentIndex:number,data : number){
+  public setIndexslot(currentIndex:number,data : number ,last:boolean=false){
 
-    if(currentIndex===0){
+    if(currentIndex===0){ //ครั้งแรก ดีดไปสูง
+      console.log("ครั้งแรก ดีดไปสูง");
+      return 1991+data;
+    }
+    else if(this.switchChange==false){ //เลขสูง ดีดไปต่ำ
+      console.log("เลขสูง ดีดไปต่ำ");
+      if(last==true)
+       this.switchChange=true;
+      return data+1;
+    }
+    else { //เลขต่ำ ดีดไปสูง
+      console.log("เลขต่ำ ดีดไปสูง");
+      if(last==true)
+        this.switchChange=false;
       return data+1991
-    }
-    else if(this.switchChange==false){
-
-      return currentIndex
-    }
-    else {
-      return currentIndex
     }
     // return currentIndex;
   }

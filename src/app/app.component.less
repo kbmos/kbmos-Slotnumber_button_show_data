@@ -5,7 +5,6 @@
 body {
   background-color: green;
 }
-
 :host {
 	box-sizing: border-box ;
 	display: flex ;
@@ -22,29 +21,24 @@ body {
 }
 h1 {
 	flex: 0 0 auto ;
-	font-size: 22px ;
-	line-height: 30px ;
-	margin: 0px 0px 0px 0px ;
-	text-align: center ;
-  color: #ffffff;
-  padding: 00px 0px 0px 00px ;
-
-	@media screen and ( min-width: 700px ) {
-		font-size: 30px ;
-		line-height: 38px ;
-	}
-
-	@media screen and ( min-width: 900px ) {
-		font-size: 38px ;
-		line-height: 45px ;
-	}
+	font-size: 80px ;
 }
 
+h3 {
+  color: #ffffff;
+  padding: 30px 0px 0px 00px ;
+}
+.test{
+  font-size: 40px;
+}
+.test2{
+  font-size: 40px;
+}
 .parts {
 	display: flex ;
 	flex-direction: column ;
 	margin: auto auto auto auto ;
-
+  padding: 0px 100px 0px 0px;
 	@media screen and ( min-width: 1175px ) {
 		flex-direction: row ;
 	}
@@ -55,6 +49,7 @@ h1 {
 	margin: auto auto auto auto ;
 	overflow: hidden ;
 	text-align: center ;
+  color: #ffffff;
 	@media screen and ( min-width: 1175px ) {
 		margin: 10px 10px 10px 10px ;
 		text-align: center ;
@@ -65,13 +60,20 @@ h1 {
 		}
 	}
 }
+.part2 {
+	height: @itemHeight ;
+	margin: 0 0 0 0 ;
+	overflow: hidden ;
+	text-align: left ;
+  color: #ffffff;
+}
 
 .items1 {
 	list-style-type: none ;
 	margin: 0px 0px 0px 0px ;
 	padding: 0px 0px 0px 0px ;
 	// transition: transform 10000ms ease-in-out ;
-  	transition: transform 6s ease-in-out 0.1s;
+  	transition: transform 4s ease-in-out 0.1s;
 	//transition-timing-function: ease-in-out 0.8s;
 	//transition-duration: 3s;
 }
@@ -80,7 +82,7 @@ h1 {
 	margin: 0px 0px 0px 0px ;
 	padding: 0px 0px 0px 0px ;
 	// transition: transform 10000ms ease-in-out ;
-  	transition: transform 8s ease-in-out 0.2s;
+  	transition: transform 6s ease-in-out 0.2s;
 	//transition-timing-function: ease-in-out 0.8s;
 	//transition-duration: 3s;
 }
@@ -90,7 +92,7 @@ h1 {
 	margin: 0px 0px 0px 0px ;
 	padding: 0px 0px 0px 0px ;
 	// transition: transform 10000ms ease-in-out ;
-  	transition: transform 10s ease-in-out 0.3s;
+  	transition: transform 8s ease-in-out 0.3s;
 	//transition-timing-function: ease-in-out 0.8s;
 	//transition-duration: 3s;
 }
@@ -100,7 +102,7 @@ h1 {
 	margin: 0px 0px 0px 0px ;
 	padding: 0px 0px 0px 0px ;
 	// transition: transform 10000ms ease-in-out ;
-  	transition: transform 12s ease-in-out 0.4s;
+  	transition: transform 10s ease-in-out 0.4s;
 	//transition-timing-function: ease-in-out 0.8s;
 	//transition-duration: 3s;
 }
@@ -110,9 +112,8 @@ h1 {
 	margin: 0px 0px 0px 0px ;
 	padding: 0px 0px 0px 0px ;
 	// transition: transform 10000ms ease-in-out ;
-  	transition: transform 14s ease-in-out 0.5s;
-	//transition-timing-function: ease-in-out 0.8s;
-	//transition-duration: 3s;
+  	transition: transform 12s ease-in-out 0.5s;
+
 }
 
 .item {
@@ -129,7 +130,7 @@ h1 {
 	}
 
 	@media screen and ( min-width: 675px ) {
-		font-size: 60px ;
+		font-size: 100px ;
 	}
 
 	&:not(.selected) {
@@ -140,9 +141,9 @@ h1 {
 }
 
 .actions {
-	display: flex ;
+	// display: flex ;
 	flex: 0 0 auto ;
-	justify-content: center ;
+	// justify-content: center ;
   text-align: center;
 
 }
