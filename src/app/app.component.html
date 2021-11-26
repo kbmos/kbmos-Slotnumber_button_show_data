@@ -1,91 +1,118 @@
 
-<h1  style="
-margin-right: 120px;">PVO HAPPY NEW YEAR 2022</h1>
-<h3 style="margin-top: 0px;margin-bottom: 40px;margin-left: 315px; font-size: 50px;">รหัสพนักงาน</h3>
-<div class="parts" style="margin-bottom: 115px;margin-top: 0px;margin-left: 30px;">
-	<div class="part" style="width: 150px; ">
-      <ul
-        class="items1"
-        [style.transform]="( 'translateY( -' + ( slot_index_1 * 85 ) + 'px )' )">
-        <li
-          *ngFor="let slot1 of slot_1 ; let i = index ;"
-          class="item"
-          [class.selected]="( i === slot_index_1 )">
-          {{ slot1 }}
-        </li>
-      </ul>
+<h1  style="margin-right: 120px; color: green;">PVO HAPPY NEW YEAR 2022</h1>
+<div class="row">
+  <div class="col-8">
+    <h3 style="margin-top: 0px;margin-bottom: 40px;margin-left: 315px; font-size: 50px;">รหัสพนักงาน</h3>
+    <div class="parts" style="margin-bottom: 115px;margin-top: 0px;margin-left: 30px;">
+      <div class="part" style="width: 150px; ">
+          <ul
+            class="items1"
+            [style.transform]="( 'translateY( -' + ( slot_index_1 * 85 ) + 'px )' )">
+            <li
+              *ngFor="let slot1 of slot_1 ; let i = index ;"
+              class="item"
+              [class.selected]="( i === slot_index_1 )">
+              {{ slot1 }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="part" style="width: 150px;">
+
+          <ul
+            class="items2"
+            [style.transform]="( 'translateY( -' + ( slot_index_2 * 85 ) + 'px )' )">
+            <li
+              *ngFor="let slot2 of slot_2 ; let i = index ;"
+              class="item"
+              [class.selected]="( i === slot_index_2 )">
+              {{ slot2 }}
+            </li>
+          </ul>
+        </div>
+      <div class="part" style="width: 150px;">
+
+        <ul
+          class="items3"
+          [style.transform]="( 'translateY( -' + ( slot_index_3 * 85 ) + 'px )' )">
+          <li
+            *ngFor="let slot3 of slot_3 ; let i = index ;"
+            class="item"
+            [class.selected]="( i === slot_index_3 )">
+            {{ slot3 }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="part" style="width: 150px;">
+
+        <ul
+          class="items4"
+          [style.transform]="( 'translateY( -' + ( slot_index_4 * 85 ) + 'px )' )">
+          <li
+            *ngFor="let slot4 of slot_4 ; let i = index ;"
+            class="item"
+            [class.selected]="( i === slot_index_4 )">
+            {{ slot4 }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="part" style="width: 150px;">
+
+        <ul
+          class="items5"
+          [style.transform]="( 'translateY( -' + ( slot_index_5 * 85 ) + 'px )' )">
+          <li
+            *ngFor="let slot5 of slot_5 ; let i = index ;"
+            class="item"
+            [class.selected]="( i === slot_index_5 )">
+            {{ slot5 }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="parts" style="margin: 0 0 0 0;">
+      <div class="part2" style="left: 0px;margin-left: 200px;">
+        <div class="test" style="bottom: 0px;top: 400px;height: 200px;width: 1000px;left: 230px;" [hidden]="visibleState">
+          ชื่อ-นามสกุล:{{UserData}}
+        </div>
+
+      </div>
+    </div>
+    <div class="test2" [hidden]="visibleState" style="color: white;margin-left: 360px;">
+      แผนก:{{department}}
     </div>
 
-    <div class="part" style="width: 150px;">
+    <div class="actions" style="margin-right: 120px;margin-top: 200;">
+      <button class="btn btn-primary" style="margin-top: 50px;" [disabled]="isLoading" (click)="generateName()"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading, 'fa-check': !isLoading}"></i> Generate Sprint Name</button>
 
-      <ul
-        class="items2"
-        [style.transform]="( 'translateY( -' + ( slot_index_2 * 85 ) + 'px )' )">
-        <li
-          *ngFor="let slot2 of slot_2 ; let i = index ;"
-          class="item"
-          [class.selected]="( i === slot_index_2 )">
-          {{ slot2 }}
-        </li>
-      </ul>
-    </div>
-  <div class="part" style="width: 150px;">
 
-    <ul
-      class="items3"
-      [style.transform]="( 'translateY( -' + ( slot_index_3 * 85 ) + 'px )' )">
-      <li
-        *ngFor="let slot3 of slot_3 ; let i = index ;"
-        class="item"
-        [class.selected]="( i === slot_index_3 )">
-        {{ slot3 }}
-      </li>
-    </ul>
-  </div>
-
-  <div class="part" style="width: 150px;">
-
-    <ul
-      class="items4"
-      [style.transform]="( 'translateY( -' + ( slot_index_4 * 85 ) + 'px )' )">
-      <li
-        *ngFor="let slot4 of slot_4 ; let i = index ;"
-        class="item"
-        [class.selected]="( i === slot_index_4 )">
-        {{ slot4 }}
-      </li>
-    </ul>
-  </div>
-
-  <div class="part" style="width: 150px;">
-
-    <ul
-      class="items5"
-      [style.transform]="( 'translateY( -' + ( slot_index_5 * 85 ) + 'px )' )">
-      <li
-        *ngFor="let slot5 of slot_5 ; let i = index ;"
-        class="item"
-        [class.selected]="( i === slot_index_5 )">
-        {{ slot5 }}
-      </li>
-    </ul>
-  </div>
-</div>
-<div class="parts" style="margin: 0 0 0 0;">
-  <div class="part2" style="left: 0px;margin-left: 200px;">
-    <div class="test" style="bottom: 0px;top: 400px;height: 200px;width: 1000px;left: 230px;" [hidden]="visibleState">
-      ชื่อ-นามสกุล:{{UserData}}
     </div>
 
   </div>
-</div>
-<div class="test2" [hidden]="visibleState" style="color: white;margin-left: 360px;">
-  แผนก:{{department}}
-</div>
+  <div class="col-4" style="color: white;">
 
-<div class="actions" style="margin-right: 590px;">
-  <button class="btn btn-primary" style="margin-top: 100px;" [disabled]="isLoading" (click)="generateName()"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading, 'fa-check': !isLoading}"></i> Generate Sprint Name</button>
-  <!-- <button mat-raised-button (click)="openDialog()">Pick one</button> -->
 
-</div>
+     <h2 style="font-size: 25;">  รางวัล "{{giftname}}" จำนวน "{{qty}}" รางวัล</h2>
+     <h2 style="font-size: 20;">  จับรางวัลไปแล้ว {{draw}} ครั้ง </h2>
+
+
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr mdbTableCol *ngFor="let el of userLucky_List">
+          <th scope="row">{{el.empid}}</th>
+          <td>{{el.name}}</td>
+          <td>{{el.surname}}</td>
+          <td>{{el.dept}}</td>
+          <td>{{el.draw}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 

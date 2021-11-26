@@ -10,6 +10,8 @@ import { slot_2s } from "./dictionaries/slot_2s";
 import { slot_3s } from "./dictionaries/slot_3s";
 import { slot_4s } from "./dictionaries/slot_4s";
 import { slot_5s } from "./dictionaries/slot_5s";
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
@@ -20,8 +22,14 @@ import { slot_5s } from "./dictionaries/slot_5s";
 	templateUrl: "./app.component.html"
 })
 export class AppComponent {
+  public currentStatus:string="";
+  public config: any;
+  public collection = { count: 60, data: [] };
+  public userLucky_List: any;
+  public userLucky_Listspare:any;
+  public empid:any;
   public luckyUser_detail:any;
-  public department:string="";
+  public department:any;
   public visibleState:boolean=true;
   public isLoading: boolean;
 	public descriptionIndex: number;
@@ -31,31 +39,33 @@ export class AppComponent {
 	public things: string[];
 	public data_server:any;
   public switchChange:boolean;
-  public UserData:string="";
-  public slot_1: string[];
-  public slot_index_1;
-  public slot_index_1_before:number;
+  public UserData:any;
+  public slot_1: string[]=slot_1s;
+  public slot_index_1=0;
+  public slot_index_1_before:number=0;
+  public draw:string="";
 
-  public slot_2: string[];
-  public slot_index_2;
-  public slot_index_2_before:number;
+  public slot_2: string[]=slot_2s;
+  public slot_index_2=0;
+  public slot_index_2_before:number=0;
 
-  public slot_3: string[];
-  public slot_index_3;
-  public slot_index_3_before:number;
+  public slot_3: string[]=slot_3s;
+  public slot_index_3=0;
+  public slot_index_3_before:number=0;
 
-  public slot_4: string[];
-  public slot_index_4;
-  public slot_index_4_before:number;
+  public slot_4: string[]=slot_4s;
+  public slot_index_4=0;
+  public slot_index_4_before:number=0;
 
-  public slot_5: string[];
-  public slot_index_5;
-  public slot_index_5_before:number;
-
-	test: string = "";
+  public slot_5: string[]=slot_5s;
+  public slot_index_5=0;
+  public slot_index_5_before:number=0;
   public Displacement:number;
-  public descriptionIndex_before:number;
+  public giftname:string="";
+  public qty:number=0;
+  public sequence:number=0;
   public gotItemIndex: number[]=[];
+  public headElements = ['รหัสพนักงาน', 'ชื่อ','นามสกุล', 'แผนก', 'เวลา'];
 
 	constructor(protected http: HttpClient) {
     this.Displacement=0;
@@ -66,27 +76,6 @@ export class AppComponent {
 		this.thingIndex = 0;
 		this.things = things;
     this.switchChange=false;
-    this.descriptionIndex_before=0;
-
-    this.slot_1=slot_1s;
-    this.slot_index_1=0;
-    this.slot_index_1_before=0;
-    this.slot_2=slot_2s;
-    this.slot_index_2=0;
-    this.slot_index_2_before=0;
-    this.slot_3=slot_3s;
-    this.slot_index_3=0;
-    this.slot_index_3_before=0;
-    this.slot_4=slot_4s;
-    this.slot_index_4=0;
-    this.slot_index_4_before=0;
-    this.slot_5=slot_5s;
-    this.slot_index_5=0;
-    this.slot_index_5_before=0;
-
-		// this.generateName();
-    // var gotItemIndex =new Array();
-
 	}
 
 
@@ -107,131 +96,91 @@ export class AppComponent {
       }
     }
   }
-  console.log(this.slot_1);
-  this.http.get(`http://192.0.0.46:8095/api/employee/employeelist`, {}).subscribe((res:any) =>{
-  const data:any = res;
-	this.data_server = data;
-	console.log("Success",this.data_server);
-  this.descriptions.push("")
-  this.things.push("");
-    for(var y=0;y<2;y++){
-        for(var x=0 ;x< data.length;x++)
-        {
-
-            this.descriptions.push(" "+data[x]['name']+" "+data[x]['surname']);
-            if(data[x]['depT_CODE']=="00")
-            {
-              this.things.push ("สำนักงานใหญ่");
-            }
-            else if(data[x]['depT_CODE']=="01")
-              this.things.push("บริหาร");
-            else
-              this.things.push(data[x]['depT_CODE']);
-          }
-       }
-          // console.log("All data:",this.slot_1);
-
-
-   });
+  this.getCurrentStatus();
   }
 
-	// ---
-	// PUBLIC METHODS.
-	// ---
-
-	// I generate the next Sprint Name by randomly selecting a Description and a Thing
-	// and then joining the two values.\
+	public getCurrentStatus(){
+    this.http.get(`http://192.0.0.46:8095/api/newyear/CurrentGift`, {}).subscribe((res:any) =>{
+    const data:any = res;
+    this.giftname=data[0].gift_name;
+    this.qty=data[0].qty;
+    this.sequence=data[0].sequence;
+    // if(data[0].draw==0)
+    //   this.draw="ยังไม่ได้จับรางวัล"
+    // else
+      this.draw=data[0].draw;
+    console.log(data);
+	  console.log("giftname : "+this.giftname+" qty : "+this.qty+" sequence : ",this.sequence);
+   });
+  }
   public getLuckyUser(){
+
     this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyDraw`, {}).subscribe((res:any) =>{
-      console.log("Data Lucky Uer : ",res);
-    return res;
+      var data=res;
+      console.log(data);
+      this.userLucky_Listspare=[];
+      this.UserData=""+data.luckydraw[0].name+" "+data.luckydraw[0].surname;
+      this.department=data.luckydraw[0].dept;
+      this.empid =data.luckydraw[0].empid;
+      this.userLucky_Listspare = data.list;
+      console.log("userluckylist: ",this.userLucky_List);
+      console.log("UserData: "+this.UserData);
+      console.log("department: "+this.department);
+      console.log("empid: "+this.empid);
+      this.slot_index_1_before=this.slot_index_1;
+      this.slot_index_1=this.empid.substring(0,1);
+      console.log("slot_index_1",this.slot_index_1);
+
+      this.slot_index_2_before=this.slot_index_2;
+      this.slot_index_2=this.empid.substring(1,2);
+      console.log("slot_index_2",this.slot_index_2);
+
+      this.slot_index_3_before=this.slot_index_3;
+      this.slot_index_3=this.empid.substring(2,3);
+      console.log("slot_index_3",this.slot_index_3);
+
+      this.slot_index_4_before=this.slot_index_4;
+      this.slot_index_4=this.empid.substring(3,4);
+      console.log("slot_index_4",this.slot_index_4);
+
+      this.slot_index_5_before=this.slot_index_5;
+      this.slot_index_5=this.empid.substring(4,5);
+      console.log("slot_index_5",this.slot_index_5);
+
+      this.slot_index_1=Number (this.slot_index_1);
+      this.slot_index_2=Number (this.slot_index_2);
+      this.slot_index_3=Number (this.slot_index_3);
+      this.slot_index_4=Number (this.slot_index_4);
+      this.slot_index_5=Number (this.slot_index_5);
+
+      this.slot_index_1=this.setIndexslot(this.slot_index_1_before,this.slot_index_1);
+      this.slot_index_2=this.setIndexslot(this.slot_index_2_before,this.slot_index_2);
+      this.slot_index_3=this.setIndexslot(this.slot_index_3_before,this.slot_index_3);
+      this.slot_index_4=this.setIndexslot(this.slot_index_4_before,this.slot_index_4);
+      this.slot_index_5=this.setIndexslot(this.slot_index_5_before,this.slot_index_5,true);
+          console.log("slot1 Index: ["+this.slot_index_1+"]slot2 Index: ["+this.slot_index_2+"] Slot3 Index: ["+this.slot_index_3+"] slot4 Index: ["+this.slot_index_4+" ] slot5 Index: ["+this.slot_index_5+"]");
     });
   }
 	public generateName() : void {
     setTimeout(() => {
       this.playAudio();
     }, 500)
-    this.luckyUser_detail=this.getLuckyUser();
+    this.getLuckyUser();
+    console.log("lucky",this.luckyUser_detail);
+    // this.UserData=this.luckyUser_detail.
     this.visibleState=true;
     console.log("this.isLoading = true");
     this.isLoading = true;
-    this.descriptionIndex_before=this.descriptionIndex; //เก็บค่าตัว current index ก่อนมันเปลี่ยนค่าไปค่าที่ random ได้
-		this.descriptionIndex = this.nextIndex( this.descriptionIndex, this.descriptions ); //สุ่มหาตัวเลขที่แรนด้อมถัดไป
-    this.thingIndex = 	this.descriptionIndex;
-    console.log(descriptions);
-    this.UserData=descriptions[this.descriptionIndex];
-    this.department=things[this.thingIndex];
-
-    this.slot_index_1_before=this.slot_index_1;
-    this.slot_index_2_before=this.slot_index_2;
-    this.slot_index_3_before=this.slot_index_3;
-    this.slot_index_4_before=this.slot_index_4;
-    this.slot_index_5_before=this.slot_index_5;
-    this.slot_index_1 = this.checkrandom0(( Math.floor( Math.random() * 9 ) ));
-    this.slot_index_2 = this.checkrandom0(( Math.floor( Math.random() * 9 ) ));
-    this.slot_index_3 = this.checkrandom0(( Math.floor( Math.random() * 9 ) ));
-    this.slot_index_4 = this.checkrandom0(( Math.floor( Math.random() * 9 ) ));
-    this.slot_index_5 = this.checkrandom0(( Math.floor( Math.random() * 9 ) ));
-    console.log("slot1: ["+this.slot_index_1+"]slot2: ["+this.slot_index_2+"] Slot3: ["+this.slot_index_3+"] slot4: ["+this.slot_index_4+" ] slot5: ["+this.slot_index_5+"]");
-    this.slot_index_1=this.setIndexslot(this.slot_index_1_before,this.slot_index_1);
-    this.slot_index_2=this.setIndexslot(this.slot_index_2_before,this.slot_index_2);
-    this.slot_index_3=this.setIndexslot(this.slot_index_3_before,this.slot_index_3);
-    this.slot_index_4=this.setIndexslot(this.slot_index_4_before,this.slot_index_4);
-    this.slot_index_5=this.setIndexslot(this.slot_index_5_before,this.slot_index_5,true);
-    console.log("slot1 Index: ["+this.slot_index_1+"]slot2 Index: ["+this.slot_index_2+"] Slot3 Index: ["+this.slot_index_3+"] slot4 Index: ["+this.slot_index_4+" ] slot5 Index: ["+this.slot_index_5+"]");
-
-    // console.log(slot_1s);
-    // console.log("descriptionIndex After return func:",this.descriptionIndex);
-    // this.descriptionIndex=1;
-    // this.Displacement= this.descriptionIndex-this.descriptionIndex_before; //หาค่ากระจัดระหว่างระยะห่างอันแรก กับ อันที่แรนด้อมได้ใหม่่
-    // this.Displacement=Math.abs(this.Displacement);
-
-    // // console.log("Displacement= "+this.Displacement+" descriptionIndex :"+(this.descriptionIndex)+" descriptionIndex_before: "+this.descriptionIndex_before+" Now this.switchChange = "+this.switchChange);
-
-    // if( this.Displacement< 500 && this.switchChange==false){
-    //   // console.log("descriptionIndex < 200 then change to :",this.descriptionIndex+this.data_server.length+ "switchChange= true ");
-    //   this.descriptionIndex+=this.data_server.length;
-    //   // this.switchChange=true;
-    //   // this.descriptionIndex+= this.descriptions.length;
-    //   // console.log("");
-    // }
-    // else if( this.Displacement< 500 && this.switchChange==true){
-    //   // console.log("descriptionIndex < 200 then change to :",this.descriptionIndex-this.data_server.length+"switchChange= false ");
-    //   this.descriptionIndex=this.descriptionIndex-this.data_server.length;
-    //   // console.log("descriptionIndex LastChange : ",this.descriptionIndex);
-    //   // this.switchChange=false;
-    //   // this.descriptionIndex+= this.descriptions.length;
-    //   // console.log("");
-    // }
-    // this.thingIndex = 	this.descriptionIndex;
-
-
-    // console.log("Description length : "+this.descriptions.length," things length :"+this.things.length);
-
-    // if(this.gotItemIndex.find(e => e === this.descriptionIndex)){
-		// console.log("1");
-    //   this.descriptionIndex++;
-    //   this.thingIndex++;
-    // }
-
-    if(this.descriptionIndex>this.data_server.length)
-      this.gotItemIndex.push(this.descriptionIndex-this.data_server.length-1);
-    else
-      this.gotItemIndex.push(this.descriptionIndex-1);
-
-    console.log(this.gotItemIndex);
-		this.sprintName = (
-			this.descriptions[ this.descriptionIndex ] +
-			" " +
-			this.things[ this.thingIndex ]
-
-		);
+    console.log(this.slot_1);
 		this.shareSprintNameWithUser( this.sprintName ); //แสดง data ใน Log
     setTimeout(() => {
       // console.log("Waiting")
       this.isLoading=false;
       this.visibleState=false;
       this.playAudio_End();
+      this.userLucky_List=[];
+      this.userLucky_List=this.userLucky_Listspare;
+      this.getCurrentStatus();
     }, 12400)
     console.log("this.isLoading = false");
 
@@ -260,7 +209,7 @@ export class AppComponent {
 
     if(currentIndex===0){ //ครั้งแรก ดีดไปสูง
       console.log("ครั้งแรก ดีดไปสูง");
-      return 1991+data;
+      return data+1991;
     }
     else if(this.switchChange==false){ //เลขสูง ดีดไปต่ำ
       console.log("เลขสูง ดีดไปต่ำ");
@@ -276,28 +225,7 @@ export class AppComponent {
     }
     // return currentIndex;
   }
-	// public generate2() : void {
-	// 	for(var x=0 ;x< this.data_loop.length;x++) {
-	// 		this.test = this.data_loop[x].name;
-	// 		this.delay(300);
-	// 		console.log(this.test);
-	// 	}
-	// }
-
-	// ---
-	// PRIVATE METHODS.
-	// ---
-
-	// I try to copy the value to the user's clipboard. Returns Boolean indicating
-	// whether or not the operation appeared to be successful.
 	private copyToClipboard( value: string ) : boolean {
-
-		// In order to execute the "Copy" command, we actually have to have a "selection"
-		// in the rendered document. As such, we're going to inject a Textarea element,
-		// populate it with the given value, select it, and then copy it. Since this
-		// operation is going to change the document selection, let's get a reference to
-		// the currently-active element (expected to be our "Generate" button) such that
-		// we can return focus after the copy command has executed.
 		var activeElement = <HTMLElement | null>document.activeElement;
 
 		var textarea: HTMLTextAreaElement = document.createElement( "textarea" );
@@ -395,4 +323,12 @@ export class AppComponent {
 
 	}
 
+}
+
+export interface PeriodicElement {
+  empid:number
+  name: string;
+  surname: number;
+  dept: number;
+  draw: string;
 }

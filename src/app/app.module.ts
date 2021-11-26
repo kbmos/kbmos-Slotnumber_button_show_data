@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialExampleModule} from '../material.module';
+import {NgxPaginationModule} from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent
@@ -14,7 +15,8 @@ import {MaterialExampleModule} from '../material.module';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialExampleModule
+    MaterialExampleModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
