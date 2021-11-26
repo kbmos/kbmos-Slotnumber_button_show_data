@@ -165,6 +165,7 @@ export class AppComponent {
     setTimeout(() => {
       this.playAudio();
     }, 500)
+
     this.getLuckyUser();
     console.log("lucky",this.luckyUser_detail);
     // this.UserData=this.luckyUser_detail.
@@ -173,6 +174,22 @@ export class AppComponent {
     this.isLoading = true;
     console.log(this.slot_1);
 		this.shareSprintNameWithUser( this.sprintName ); //แสดง data ใน Log
+    setTimeout(() => {
+      // console.log("Waiting")
+      this.playAudio_End();
+    }, 4100)
+    setTimeout(() => {
+      // console.log("Waiting")
+      this.playAudio_End();
+    }, 6200)
+    setTimeout(() => {
+      // console.log("Waiting")
+      this.playAudio_End();
+    }, 8300)
+    setTimeout(() => {
+      // console.log("Waiting")
+      this.playAudio_End();
+    }, 10400)
     setTimeout(() => {
       // console.log("Waiting")
       this.isLoading=false;
@@ -194,7 +211,7 @@ export class AppComponent {
   }
   public playAudio(){
     let audio = new Audio();
-    audio.src = "../assets/sounds/slot-machine-sound-effect (2).mp3";
+    audio.src = "../assets/sounds/slotsound12s2.wav";
     audio.load();
     audio.play();
   }
