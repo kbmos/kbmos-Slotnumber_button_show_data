@@ -6,12 +6,15 @@ import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialExampleModule} from '../material.module';
 import {NgxPaginationModule} from 'ngx-pagination';
-
+import { PopupModule } from '@progress/kendo-angular-popup';
+import { LibModule } from './lib/lib.module';
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    LibModule,
+    PopupModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

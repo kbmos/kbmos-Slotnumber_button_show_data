@@ -22,6 +22,8 @@ import {MatTableDataSource} from '@angular/material/table';
 	templateUrl: "./app.component.html"
 })
 export class AppComponent {
+  dropDownIsOpen: boolean = false;
+  modalIsOpen: boolean = false;
   public currentStatus:string="";
   public config: any;
   public collection = { count: 60, data: [] };
@@ -113,6 +115,9 @@ export class AppComponent {
 	  console.log("giftname : "+this.giftname+" qty : "+this.qty+" sequence : ",this.sequence);
    });
   }
+  showModalDialog(){
+    this.modalIsOpen = true;
+  }
   public getLuckyUser(){
 
     this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyDraw`, {}).subscribe((res:any) =>{
@@ -203,12 +208,7 @@ export class AppComponent {
 
 
 	}
-  checkrandom0(num:number){
-    // if(num==0)
-    //   return 1;
-    // else
-      return num;
-  }
+
   public playAudio(){
     let audio = new Audio();
     audio.src = "../assets/sounds/slotsound12s2.wav";
