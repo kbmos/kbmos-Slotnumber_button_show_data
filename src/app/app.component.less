@@ -13,11 +13,27 @@ body {
 	min-height: 100vh ;
 	padding: 30px 30px 30px 30px ;
 }
+
 .iconset{
   padding: 000px 0px 0px 1000px ;
   width: 10% ;
   height: 10%;
 
+}
+.popup-content{
+  text-align: center;
+  margin: 20px;
+}
+
+.modal-content{
+  padding: 10px;
+  margin: 0px;
+  // text-align: center;
+  background: #eee;
+}
+
+lib-drop-down{
+  margin: 10px;
 }
 h1 {
 	flex: 0 0 auto ;
@@ -37,7 +53,6 @@ h3 {
   font-size: 40px;
 }
 .parts {
-	display: flex ;
 	flex-direction: column ;
 	margin: auto auto auto auto ;
   padding: 0px 0px 0px 0px;
@@ -66,7 +81,6 @@ h3 {
 	height: @itemHeight ;
 	margin: 0 0 0 0 ;
 	overflow: hidden ;
-	text-align: left ;
   color: #ffffff;
 }
 
@@ -74,10 +88,7 @@ h3 {
 	list-style-type: none ;
 	margin: 0px 0px 0px 0px ;
 	padding: 0px 0px 0px 0px ;
-	// transition: transform 10000ms ease-in-out ;
   	transition: transform 4s ease-in-out 0.1s;
-	//transition-timing-function: ease-in-out 0.8s;
-	//transition-duration: 3s;
 }
 .items2 {
 	list-style-type: none ;
@@ -93,27 +104,21 @@ h3 {
 	list-style-type: none ;
 	margin: 0px 0px 0px 0px ;
 	padding: 0px 0px 0px 0px ;
-	// transition: transform 10000ms ease-in-out ;
   	transition: transform 8s ease-in-out 0.3s;
-	//transition-timing-function: ease-in-out 0.8s;
-	//transition-duration: 3s;
 }
 
 .items4 {
 	list-style-type: none ;
 	margin: 0px 0px 0px 0px ;
 	padding: 0px 0px 0px 0px ;
-	// transition: transform 10000ms ease-in-out ;
+
   	transition: transform 10s ease-in-out 0.4s;
-	//transition-timing-function: ease-in-out 0.8s;
-	//transition-duration: 3s;
 }
 
 .items5 {
 	list-style-type: none ;
 	margin: 0px 0px 0px 0px ;
 	padding: 0px 0px 0px 0px ;
-	// transition: transform 10000ms ease-in-out ;
   	transition: transform 12s ease-in-out 0.5s;
 
 }

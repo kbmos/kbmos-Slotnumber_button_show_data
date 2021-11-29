@@ -82,11 +82,11 @@ export class AppComponent {
 
 
   ngOnInit() {
-  this.slot_1.push("?");
-  this.slot_2.push("?");
-  this.slot_3.push("?");
-  this.slot_4.push("?");
-  this.slot_5.push("?");
+  this.slot_1.push("0");
+  this.slot_2.push("0");
+  this.slot_3.push("0");
+  this.slot_4.push("0");
+  this.slot_5.push("0");
   for(var z=0;z<2;z++){
     for(var y=0;y<100;y++){
       for(var x=0;x<10;x++){
