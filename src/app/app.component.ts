@@ -55,7 +55,6 @@ export class AppComponent {
   public slot_3: string[]=slot_3s;
   public slot_index_3=0;
   public slot_index_3_before:number=0;
-
   public slot_4: string[]=slot_4s;
   public slot_index_4=0;
   public slot_index_4_before:number=0;
@@ -83,11 +82,21 @@ export class AppComponent {
   elements: any = [];
 
   ngOnInit() {
+  // this.userLucky_List=[];
+  console.log("UserLucky_list ",this.userLucky_List);
+  this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyPersons`).subscribe({
+    next: res => {
+      var data:any=res;
+      if(data.msg!="ไม่พบรางวัลใดๆในระบ"){
+        console.log(data.msg);
+        this.userLucky_List=data;
+        console.log("UserLucky_Listxxx",this.userLucky_List);
+      }
+      else{
+        console.log('There was an error!');
+      }
 
-  this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyPersons`, {}).subscribe((res:any) =>{
-    var data=res;
-    this.userLucky_List=data;
-    console.log(this.userLucky_List);
+    }
   });
 
   this.getCurrentStatus();
@@ -134,77 +143,158 @@ export class AppComponent {
 	public getCurrentStatus(){
     this.http.get(`http://192.0.0.46:8095/api/newyear/CurrentGift`, {}).subscribe((res:any) =>{
     const data:any = res;
-    console.log(data);
+    // console.log(data.currentGift.length);
+    if(data.currentGift.length!=0){
       this.giftname=data.currentGift[0].gift_name;
       this.qty=data.currentGift[0].qty;
       this.sequence=data.currentGift[0].sequence;
       this.draw=data.currentGift[0].draw;
-
-
-	  console.log("giftname : "+this.giftname+" qty : "+this.qty+" sequence : ",this.sequence+" LastItem : ",this.lastItem);
+	    console.log("giftname : "+this.giftname+" qty : "+this.qty+" sequence : ",this.sequence+" LastItem : ",this.lastItem);
+    }
+    else {
+      // window.alert();
+      this.giftname="ไม่มี";
+      this.qty=0;
+      this.sequence=0;
+      this.draw="0";
+      this.isLoading=true;
+    }
    });
   }
   showModalDialog(){
     this.modalIsOpen = true;
   }
+  // public getLuckyUser(){
+
+  //   this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyDraw`, {}).subscribe((res:any) =>{
+  //     var data=res;
+  //     console.log(data);
+  //     this.userLucky_Listspare=[];
+  //     this.UserData=""+data.luckydraw[0].name+" "+data.luckydraw[0].surname;
+  //     // var num=Number (this.draw);
+  //     if(data.luckydraw[0].dept=="00"){
+  //       this.department="สำนักงานใหญ่";
+  //     }
+  //     else if(data.luckydraw[0].dept=="01"){
+  //       this.department="บริหาร";
+  //     }
+  //     else{
+  //       this.department=data.luckydraw[0].dept;
+  //     }
+  //     this.empid =data.luckydraw[0].empid;
+  //     this.userLucky_Listspare = data.list;
+  //     this.lastItem=data.isLastItem;
+  //     console.log("userluckylist: ",this.userLucky_List);
+  //     console.log("UserData: "+this.UserData);
+  //     console.log("department: "+this.department);
+  //     console.log("empid: "+this.empid);
+
+  //     this.slot_index_1_before=this.slot_index_1;
+  //     this.slot_index_1=this.empid.substring(0,1);
+  //     console.log("slot_index_1",this.slot_index_1);
+
+  //     this.slot_index_2_before=this.slot_index_2;
+  //     this.slot_index_2=this.empid.substring(1,2);
+  //     console.log("slot_index_2",this.slot_index_2);
+
+  //     this.slot_index_3_before=this.slot_index_3;
+  //     this.slot_index_3=this.empid.substring(2,3);
+  //     console.log("slot_index_3",this.slot_index_3);
+
+  //     this.slot_index_4_before=this.slot_index_4;
+  //     this.slot_index_4=this.empid.substring(3,4);
+  //     console.log("slot_index_4",this.slot_index_4);
+
+  //     this.slot_index_5_before=this.slot_index_5;
+  //     this.slot_index_5=this.empid.substring(4,5);
+  //     console.log("slot_index_5",this.slot_index_5);
+
+  //     this.slot_index_1=Number (this.slot_index_1);
+  //     this.slot_index_2=Number (this.slot_index_2);
+  //     this.slot_index_3=Number (this.slot_index_3);
+  //     this.slot_index_4=Number (this.slot_index_4);
+  //     this.slot_index_5=Number (this.slot_index_5);
+
+  //     this.slot_index_1=this.setIndexslot(this.slot_index_1_before,this.slot_index_1);
+  //     this.slot_index_2=this.setIndexslot(this.slot_index_2_before,this.slot_index_2);
+  //     this.slot_index_3=this.setIndexslot(this.slot_index_3_before,this.slot_index_3);
+  //     this.slot_index_4=this.setIndexslot(this.slot_index_4_before,this.slot_index_4);
+  //     this.slot_index_5=this.setIndexslot(this.slot_index_5_before,this.slot_index_5,true);
+  //         console.log("slot1 Index: ["+this.slot_index_1+"]slot2 Index: ["+this.slot_index_2+"] Slot3 Index: ["+this.slot_index_3+"] slot4 Index: ["+this.slot_index_4+" ] slot5 Index: ["+this.slot_index_5+"]");
+  //   });
+
+  // }
   public getLuckyUser(){
 
-    this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyDraw`, {}).subscribe((res:any) =>{
-      var data=res;
-      console.log(data);
-      this.userLucky_Listspare=[];
-      this.UserData=""+data.luckydraw[0].name+" "+data.luckydraw[0].surname;
-      // var num=Number (this.draw);
-      if(data.luckydraw[0].dept=="00"){
-        this.department="สำนักงานใหญ่";
-      }
-      else if(data.luckydraw[0].dept=="01"){
-        this.department="บริหาร";
+    this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyDraw`).subscribe({
+      next: (res: any)=> {
+      console.log("if error dont show this");
+      var data:any=res;
+      if(data.msg!="ไม่พบพนักงานพนักงานลงทะเบียนร่วมกิจกรรม"){
+        console.log(data);
+        this.userLucky_Listspare=[];
+        this.UserData=""+data.luckydraw[0].name+" "+data.luckydraw[0].surname;
+        // var num=Number (this.draw);
+        if(data.luckydraw[0].dept=="00"){
+          this.department="สำนักงานใหญ่";
+        }
+        else if(data.luckydraw[0].dept=="01"){
+          this.department="บริหาร";
+        }
+        else{
+          this.department=data.luckydraw[0].dept;
+        }
+        this.empid =data.luckydraw[0].empid;
+        this.userLucky_Listspare = data.list;
+        this.lastItem=data.isLastItem;
+        console.log("userluckylist: ",this.userLucky_List);
+        console.log("UserData: "+this.UserData);
+        console.log("department: "+this.department);
+        console.log("empid: "+this.empid);
+
+        this.slot_index_1_before=this.slot_index_1;
+        this.slot_index_1=this.empid.substring(0,1);
+        console.log("slot_index_1",this.slot_index_1);
+
+        this.slot_index_2_before=this.slot_index_2;
+        this.slot_index_2=this.empid.substring(1,2);
+        console.log("slot_index_2",this.slot_index_2);
+
+        this.slot_index_3_before=this.slot_index_3;
+        this.slot_index_3=this.empid.substring(2,3);
+        console.log("slot_index_3",this.slot_index_3);
+
+        this.slot_index_4_before=this.slot_index_4;
+        this.slot_index_4=this.empid.substring(3,4);
+        console.log("slot_index_4",this.slot_index_4);
+
+        this.slot_index_5_before=this.slot_index_5;
+        this.slot_index_5=this.empid.substring(4,5);
+        console.log("slot_index_5",this.slot_index_5);
+
+        this.slot_index_1=Number (this.slot_index_1);
+        this.slot_index_2=Number (this.slot_index_2);
+        this.slot_index_3=Number (this.slot_index_3);
+        this.slot_index_4=Number (this.slot_index_4);
+        this.slot_index_5=Number (this.slot_index_5);
+
+        this.slot_index_1=this.setIndexslot(this.slot_index_1_before,this.slot_index_1);
+        this.slot_index_2=this.setIndexslot(this.slot_index_2_before,this.slot_index_2);
+        this.slot_index_3=this.setIndexslot(this.slot_index_3_before,this.slot_index_3);
+        this.slot_index_4=this.setIndexslot(this.slot_index_4_before,this.slot_index_4);
+        this.slot_index_5=this.setIndexslot(this.slot_index_5_before,this.slot_index_5,true);
+        console.log("slot1 Index: ["+this.slot_index_1+"]slot2 Index: ["+this.slot_index_2+"] Slot3 Index: ["+this.slot_index_3+"] slot4 Index: ["+this.slot_index_4+" ] slot5 Index: ["+this.slot_index_5+"]");
       }
       else{
-        this.department=data.luckydraw[0].dept;
+        this.isLoading=true;
+        this.NextReward();
+        window.alert("ไม่พบพนักงานพนักงานลงทะเบียนร่วมกิจกรรมแล้ว");
       }
-      this.empid =data.luckydraw[0].empid;
-      this.userLucky_Listspare = data.list;
-      this.lastItem=data.isLastItem;
-      console.log("userluckylist: ",this.userLucky_List);
-      console.log("UserData: "+this.UserData);
-      console.log("department: "+this.department);
-      console.log("empid: "+this.empid);
-
-      this.slot_index_1_before=this.slot_index_1;
-      this.slot_index_1=this.empid.substring(0,1);
-      console.log("slot_index_1",this.slot_index_1);
-
-      this.slot_index_2_before=this.slot_index_2;
-      this.slot_index_2=this.empid.substring(1,2);
-      console.log("slot_index_2",this.slot_index_2);
-
-      this.slot_index_3_before=this.slot_index_3;
-      this.slot_index_3=this.empid.substring(2,3);
-      console.log("slot_index_3",this.slot_index_3);
-
-      this.slot_index_4_before=this.slot_index_4;
-      this.slot_index_4=this.empid.substring(3,4);
-      console.log("slot_index_4",this.slot_index_4);
-
-      this.slot_index_5_before=this.slot_index_5;
-      this.slot_index_5=this.empid.substring(4,5);
-      console.log("slot_index_5",this.slot_index_5);
-
-      this.slot_index_1=Number (this.slot_index_1);
-      this.slot_index_2=Number (this.slot_index_2);
-      this.slot_index_3=Number (this.slot_index_3);
-      this.slot_index_4=Number (this.slot_index_4);
-      this.slot_index_5=Number (this.slot_index_5);
-
-      this.slot_index_1=this.setIndexslot(this.slot_index_1_before,this.slot_index_1);
-      this.slot_index_2=this.setIndexslot(this.slot_index_2_before,this.slot_index_2);
-      this.slot_index_3=this.setIndexslot(this.slot_index_3_before,this.slot_index_3);
-      this.slot_index_4=this.setIndexslot(this.slot_index_4_before,this.slot_index_4);
-      this.slot_index_5=this.setIndexslot(this.slot_index_5_before,this.slot_index_5,true);
-          console.log("slot1 Index: ["+this.slot_index_1+"]slot2 Index: ["+this.slot_index_2+"] Slot3 Index: ["+this.slot_index_3+"] slot4 Index: ["+this.slot_index_4+" ] slot5 Index: ["+this.slot_index_5+"]");
-    });
+      },
+      error: (error: any) => {
+          console.log("error : ",error);
+      }
+  });
 
   }
 	public generateName() : void {
@@ -241,7 +331,7 @@ export class AppComponent {
       // console.log("Waiting")
       this.isLoading=false;
       this.visibleState=false;
-      this.playAudio_End();
+      this.playAudioVictory();
       this.userLucky_List=[];
       this.userLucky_List=this.userLucky_Listspare;
       if(this.lastItem!=true)
@@ -269,6 +359,12 @@ export class AppComponent {
   public playAudio_End(){
     let audio = new Audio();
     audio.src = "../assets/sounds/mixkit-coin-win.wav";
+    audio.load();
+    audio.play();
+  }
+  public playAudioVictory(){
+    let audio = new Audio();
+    audio.src = "../assets/sounds/sfx-victory6.mp3";
     audio.load();
     audio.play();
   }
