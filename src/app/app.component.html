@@ -1,16 +1,17 @@
-
+<script type="text/javascript" src="https://rawgit.com/Gary-Li/angular-scrollable-table/master/angular-scrollable-table.js"></script>
 <div class="row">
-  <h1  style="margin-right: 120px; color: green;">PVO HAPPY NEW YEAR 2022</h1>
+  <h1  style="margin-right: 120px; color:yellow;">PVO HAPPY NEW YEAR 2022</h1>
 </div>
 <div class="row">
   <div class="col-12" style="color: white;">
     <h2 style="text-align: center; font-size: 40px; margin-top: 30px;">  รางวัล "{{giftname}}" จำนวน "{{qty}}" รางวัล</h2>
     <h2 style="text-align: center; font-size: 40px;">  จับรางวัลไปแล้ว {{draw}} ครั้ง </h2>
     <h3 style="text-align: center; font-size: 50px; margin-top: 50px; margin-bottom: 30px;">รหัสพนักงาน</h3>
-    <div class="row" style="text-align: center;">
-      <div class="part" style="width: 200px;height: 200; margin-left: 420px;">
+    <div class="row d-flex justify-content-center" style="text-align: center;">
+      <div class="part" style="width: 200px;height: 200;">
         <ul
-          class="items1"
+
+          [ngClass]="setZero === 'setZero' ? 'Zero':'items1'"
           [style.transform]="( 'translateY( -' + ( slot_index_1 * 85 ) + 'px )' )">
           <li
             *ngFor="let slot1 of slot_1 ; let i = index ;"
@@ -21,9 +22,10 @@
         </ul>
       </div>
 
+
       <div class="part" style="width: 200px;">
         <ul
-          class="items2"
+        [ngClass]="setZero === 'setZero' ? 'Zero':'items2'"
           [style.transform]="( 'translateY( -' + ( slot_index_2 * 85 ) + 'px )' )">
           <li
             *ngFor="let slot2 of slot_2 ; let i = index ;"
@@ -36,7 +38,7 @@
 
       <div class="part" style="width: 200px;">
         <ul
-          class="items3"
+        [ngClass]="setZero === 'setZero' ? 'Zero':'items3'"
           [style.transform]="( 'translateY( -' + ( slot_index_3 * 85 ) + 'px )' )">
           <li
             *ngFor="let slot3 of slot_3 ; let i = index ;"
@@ -50,7 +52,7 @@
       <div class="part" style="width: 200px;">
 
         <ul
-          class="items4"
+        [ngClass]="setZero === 'setZero' ? 'Zero':'items4'"
           [style.transform]="( 'translateY( -' + ( slot_index_4 * 85 ) + 'px )' )">
           <li
             *ngFor="let slot4 of slot_4 ; let i = index ;"
@@ -64,7 +66,7 @@
       <div class="part" style="width: 200px;">
 
         <ul
-          class="items5"
+        [ngClass]="setZero === 'setZero' ? 'Zero':'items5'"
           [style.transform]="( 'translateY( -' + ( slot_index_5 * 85 ) + 'px )' )">
           <li
             *ngFor="let slot5 of slot_5 ; let i = index ;"
@@ -74,6 +76,9 @@
           </li>
         </ul>
       </div>
+      </div>
+      <div class="row">
+
       <div class="parts">
         <div class="part2" style="text-align: center;">
           <div  style="text-align: center; font-size: 50px; margin-bottom: 30px;margin-top: 30px;" [hidden]="visibleState">
@@ -88,8 +93,8 @@
       <div class="row">
         <div class="col-7">
           <div style="text-align: right; margin-top: 100px;">
-            <button class="btn btn-primary"  [disabled]="isLoading" (click)="generateName()"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading, 'fa-check': !isLoading}"></i> Generate Sprint Name</button>
-
+            <button class="btn btn-primary"  [disabled]="isLoading" [hidden]="lastItem" (click)="generateName()"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading, 'fa-check': !isLoading}"></i> Generate Sprint Name</button>
+            <button class="btn btn-primary"  [hidden]="!lastItem" (click)="NextReward()"  style="margin-right: 50px;"> Next Reward</button>
 
           </div>
         </div>
@@ -107,15 +112,17 @@
           <div class="modal-content">
             <h2>  รางวัล "{{giftname}}" จำนวน "{{qty}}" รางวัล</h2>
             <h2>  จับรางวัลไปแล้ว {{draw}} ครั้ง </h2>
-           <table class="table table-dark">
+           <table mdbTable mdbTableScroll scrollY="true" maxHeight="200px" bordered="true" class="table table-dark" style="font-size: 30px;">
              <thead>
                <tr>
                  <th *ngFor="let head of headElements" scope="col" >{{head}} </th>
                </tr>
              </thead>
              <tbody>
-               <tr mdbTableCol *ngFor="let el of userLucky_List">
-                 <th scope="row">{{el.empid}}</th>
+               <tr mdbTableCol *ngFor="let el of userLucky_List let i = index;">
+
+                 <th scope="row">{{i+1}}</th>
+                 <td>{{el.empid}}</td>
                  <td>{{el.name}}</td>
                  <td>{{el.surname}}</td>
                  <td>{{el.dept}}</td>
@@ -130,7 +137,6 @@
 
     </div>
   </div>
-
 
 
 

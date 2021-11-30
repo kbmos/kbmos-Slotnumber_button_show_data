@@ -1,8 +1,7 @@
-<div *libPopupRect="isOpen;overlay: true" class="l-modal-dialog" style="margin-bottom: 400px;">
-  <h2 style="text-align: center; font-size: 100px;">{{title}}</h2>
+<div *libPopupRect="isOpen;overlay: true" class="l-modal-dialog" style="margin-bottom: 0px;width: 1500px;height: 980px;">
+  <h2 style="text-align: center;font-size: 80px;margin-top: 0px;margin-bottom: 5px;">{{title}}</h2>
   <ng-content></ng-content>
   <div class="l-buttons" style="margin-top: 30px;" >
-    <!-- <button (click)="onClose()">Close</button> -->
     <button type="button" class="btn btn-primary" (click)="onClose()">Close</button>
   </div>
 </div>

@@ -53,7 +53,7 @@ h3 {
   font-size: 40px;
 }
 .parts {
-	flex-direction: column ;
+	// flex-direction: column ;
 	margin: auto auto auto auto ;
   padding: 0px 0px 0px 0px;
 	@media screen and ( min-width: 1175px ) {
@@ -83,7 +83,12 @@ h3 {
 	overflow: hidden ;
   color: #ffffff;
 }
-
+.Zero{
+  list-style-type: none ;
+	margin: 0px 0px 0px 0px ;
+	padding: 0px 0px 0px 0px ;
+  transition: transform 1s ease-in-out 0s;
+}
 .items1 {
 	list-style-type: none ;
 	margin: 0px 0px 0px 0px ;
@@ -124,7 +129,7 @@ h3 {
 }
 
 .item {
-	font-size: 32px ;
+	font-size: 50px ;
 	font-weight: 2000 ;
   color: #ffffff;
 	height: @itemHeight ;
@@ -133,11 +138,11 @@ h3 {
 	padding: 0px 0px 0px 0px ;
 
 	@media screen and ( min-width: 550px ) {
-		font-size: 50px ;
+		font-size: 100px ;
 	}
 
-	@media screen and ( min-width: 675px ) {
-		font-size: 100px ;
+	@media screen and ( min-width: 675px ) {// ขนาด ฟ้อน
+		font-size:100px ;
 	}
 
 	&:not(.selected) {
@@ -170,3 +175,4 @@ h3 {
 
 
 }
+

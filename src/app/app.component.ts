@@ -4,14 +4,11 @@ import { HttpClient } from '@angular/common/http';
 // Import the application components and services.
 import { descriptions } from "./dictionaries/descriptions";
 import { things } from "./dictionaries/things";
-import { ThrowStmt } from "@angular/compiler";
 import { slot_1s } from "./dictionaries/slot_1s";
 import { slot_2s } from "./dictionaries/slot_2s";
 import { slot_3s } from "./dictionaries/slot_3s";
 import { slot_4s } from "./dictionaries/slot_4s";
 import { slot_5s } from "./dictionaries/slot_5s";
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
 
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
@@ -22,8 +19,12 @@ import {MatTableDataSource} from '@angular/material/table';
 	templateUrl: "./app.component.html"
 })
 export class AppComponent {
+  public white:string="white"
+  public transition:number=0;
+  public lastItem: boolean=false;
   dropDownIsOpen: boolean = false;
   modalIsOpen: boolean = false;
+  public no=1;
   public currentStatus:string="";
   public config: any;
   public collection = { count: 60, data: [] };
@@ -67,8 +68,8 @@ export class AppComponent {
   public qty:number=0;
   public sequence:number=0;
   public gotItemIndex: number[]=[];
-  public headElements = ['รหัสพนักงาน', 'ชื่อ','นามสกุล', 'แผนก', 'เวลา'];
-
+  public headElements = ['ลำดับที่','รหัสพนักงาน', 'ชื่อ','นามสกุล', 'แผนก', 'เวลา'];
+  public   setZero:any ="";
 	constructor(protected http: HttpClient) {
     this.Displacement=0;
     this.isLoading=false;
@@ -79,9 +80,17 @@ export class AppComponent {
 		this.things = things;
     this.switchChange=false;
 	}
-
+  elements: any = [];
 
   ngOnInit() {
+
+  this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyPersons`, {}).subscribe((res:any) =>{
+    var data=res;
+    this.userLucky_List=data;
+    console.log(this.userLucky_List);
+  });
+
+  this.getCurrentStatus();
   this.slot_1.push("0");
   this.slot_2.push("0");
   this.slot_3.push("0");
@@ -98,21 +107,41 @@ export class AppComponent {
       }
     }
   }
-  this.getCurrentStatus();
+
+  }
+
+
+  public NextReward(){
+
+    this.setZero = "setZero";
+    this.lastItem=false;
+    this.getCurrentStatus();
+    this.userLucky_List=[];
+    this.slot_index_1_before=0;
+    this.slot_index_2_before=0;
+    this.slot_index_3_before=0;
+    this.slot_index_4_before=0;
+    this.slot_index_5_before=0;
+
+    this.slot_index_1=this.resetIndexslot();
+    this.slot_index_2=this.resetIndexslot();
+    this.slot_index_3=this.resetIndexslot();
+    this.slot_index_4=this.resetIndexslot();
+    this.slot_index_5=this.resetIndexslot();
+    this.visibleState=true;
   }
 
 	public getCurrentStatus(){
     this.http.get(`http://192.0.0.46:8095/api/newyear/CurrentGift`, {}).subscribe((res:any) =>{
     const data:any = res;
-    this.giftname=data[0].gift_name;
-    this.qty=data[0].qty;
-    this.sequence=data[0].sequence;
-    // if(data[0].draw==0)
-    //   this.draw="ยังไม่ได้จับรางวัล"
-    // else
-      this.draw=data[0].draw;
     console.log(data);
-	  console.log("giftname : "+this.giftname+" qty : "+this.qty+" sequence : ",this.sequence);
+      this.giftname=data.currentGift[0].gift_name;
+      this.qty=data.currentGift[0].qty;
+      this.sequence=data.currentGift[0].sequence;
+      this.draw=data.currentGift[0].draw;
+
+
+	  console.log("giftname : "+this.giftname+" qty : "+this.qty+" sequence : ",this.sequence+" LastItem : ",this.lastItem);
    });
   }
   showModalDialog(){
@@ -125,13 +154,24 @@ export class AppComponent {
       console.log(data);
       this.userLucky_Listspare=[];
       this.UserData=""+data.luckydraw[0].name+" "+data.luckydraw[0].surname;
-      this.department=data.luckydraw[0].dept;
+      // var num=Number (this.draw);
+      if(data.luckydraw[0].dept=="00"){
+        this.department="สำนักงานใหญ่";
+      }
+      else if(data.luckydraw[0].dept=="01"){
+        this.department="บริหาร";
+      }
+      else{
+        this.department=data.luckydraw[0].dept;
+      }
       this.empid =data.luckydraw[0].empid;
       this.userLucky_Listspare = data.list;
+      this.lastItem=data.isLastItem;
       console.log("userluckylist: ",this.userLucky_List);
       console.log("UserData: "+this.UserData);
       console.log("department: "+this.department);
       console.log("empid: "+this.empid);
+
       this.slot_index_1_before=this.slot_index_1;
       this.slot_index_1=this.empid.substring(0,1);
       console.log("slot_index_1",this.slot_index_1);
@@ -165,8 +205,10 @@ export class AppComponent {
       this.slot_index_5=this.setIndexslot(this.slot_index_5_before,this.slot_index_5,true);
           console.log("slot1 Index: ["+this.slot_index_1+"]slot2 Index: ["+this.slot_index_2+"] Slot3 Index: ["+this.slot_index_3+"] slot4 Index: ["+this.slot_index_4+" ] slot5 Index: ["+this.slot_index_5+"]");
     });
+
   }
 	public generateName() : void {
+    this.setZero="";
     setTimeout(() => {
       this.playAudio();
     }, 500)
@@ -202,7 +244,16 @@ export class AppComponent {
       this.playAudio_End();
       this.userLucky_List=[];
       this.userLucky_List=this.userLucky_Listspare;
-      this.getCurrentStatus();
+      if(this.lastItem!=true)
+      {
+        this.getCurrentStatus();
+      }
+      else{
+        var num=Number (this.draw);
+        num++;
+        this.draw=""+num;
+      }
+
     }, 12400)
     console.log("this.isLoading = false");
 
@@ -221,7 +272,9 @@ export class AppComponent {
     audio.load();
     audio.play();
   }
-
+  public resetIndexslot(){
+    return 0;
+  }
   public setIndexslot(currentIndex:number,data : number ,last:boolean=false){
 
     if(currentIndex===0){ //ครั้งแรก ดีดไปสูง
@@ -343,6 +396,7 @@ export class AppComponent {
 }
 
 export interface PeriodicElement {
+  no:number;
   empid:number
   name: string;
   surname: number;
