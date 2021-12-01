@@ -60,6 +60,19 @@ h3 {
 		flex-direction: row ;
 	}
 }
+.notlast{
+  width: 50%;
+  height: 30%;
+  margin-top: 50px;
+  margin-left: 5%;
+
+}
+.last{
+  width: 50%;
+  height: 30%;
+  margin-top: 50px;
+  margin-left: 40%;
+}
 
 .part {
 	height: @itemHeight ;
@@ -76,6 +89,25 @@ h3 {
 			text-align: center ;
 		}
 	}
+}
+.sticky{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+.my-custom-scrollbar {
+  position: relative;
+  height: 200px;
+  overflow: auto;
+  }
+  .table-wrapper-scroll-y {
+  display: block;
+  }
+.table{
+    // width:300px;
+    // height: 1200px;
+    overflow-y: scroll;
+    scrollbar-width: thin;
 }
 .part2 {
 	height: @itemHeight ;

@@ -94,13 +94,18 @@
         <div class="col-7">
           <div style="text-align: right; margin-top: 100px;">
             <button class="btn btn-primary"  [disabled]="isLoading" [hidden]="lastItem" (click)="generateName()"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading, 'fa-check': !isLoading}"></i> Generate Sprint Name</button>
-            <button class="btn btn-primary"  [hidden]="!lastItem" (click)="NextReward()"  style="margin-right: 50px;"> Next Reward</button>
+            <button class="btn btn-primary"  [hidden]="!lastItem" [disabled]="isLoading" (click)="NextReward()"  style="margin-right: 50px;"> Next Reward</button>
 
           </div>
         </div>
-        <div class="col-5">
-          <img  (click)="showModalDialog()" src="../assets/images/gift-box-icon-png-53.png" alt="xssm" style="width: 30%; margin-top: 50px;margin-left: 60%;">
+        <div class="col-5" >
+          <div class="row">
+            <img  [hidden]="showalldialog" (click)="showModalDialog()" src="../assets/images/gift-box-icon-png-53.png" alt="xssm" style="width: 30%; margin-top: 50px;margin-left: 15%;">
+            <img [ngClass]="showalldialog === true ? 'last':'notlast'" (click)="showModalDialog2()" src="../assets/images/kisspng-christmas-gift-clip-art-5ad79b0e8d64f9.7198394915240793745792.png" alt="xssm" >
+          </div>
+
         </div>
+
       </div>
 
 
@@ -112,31 +117,68 @@
           <div class="modal-content">
             <h2>  รางวัล "{{giftname}}" จำนวน "{{qty}}" รางวัล</h2>
             <h2>  จับรางวัลไปแล้ว {{draw}} ครั้ง </h2>
-           <table mdbTable mdbTableScroll scrollY="true" maxHeight="200px" bordered="true" class="table table-dark" style="font-size: 30px;">
-             <thead>
-               <tr>
-                 <th *ngFor="let head of headElements" scope="col" >{{head}} </th>
-               </tr>
-             </thead>
-             <tbody>
-               <tr mdbTableCol *ngFor="let el of userLucky_List let i = index;">
+            <div class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 650px;">
+              <table mdbTable mdbTableScroll scrollY="true" bordered="true" class="table table-dark" style="font-size: 30px;">
+                <thead>
+                  <tr>
+                    <th *ngFor="let head of headElements" scope="col" >{{head}} </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr mdbTableCol *ngFor="let el of userLucky_List let i = index;">
 
-                 <th scope="row">{{i+1}}</th>
-                 <td>{{el.empid}}</td>
-                 <td>{{el.name}}</td>
-                 <td>{{el.surname}}</td>
-                 <td>{{el.dept}}</td>
-                 <td>{{el.draw}}</td>
-               </tr>
-             </tbody>
-           </table>
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{el.empid}}</td>
+                    <td>{{el.name}}</td>
+                    <td>{{el.surname}}</td>
+                    <td>{{el.dept}}</td>
+                    <td>{{el.draw}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
           </div>
         </lib-modal-dialog>
 
       </div>
 
     </div>
+    <div class="root">
+      <!-- <button  (click)="showModalDialog()" >
+      </button> -->
+    <lib-modal-dialog [(isOpen)]="modalIsOpen2" title="รางวัลผู้โชคดี">
+      <div class="modal-content">
+        <h2>  รางวัล ผู้โชคดีทั้งหมด {{allgifts}} รางวัล</h2>
+        <div class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 700px;">
+          <table  class="table table-dark" style="font-size: 30px;">
+            <thead>
+              <tr>
+                <th class="sticky" *ngFor="let head of headElements2" scope="col" >{{head}} </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr mdbTableCol *ngFor="let el of alluserluckylist let i = index;">
+
+                <th scope="row">{{i+1}}</th>
+                <td>{{el.empid}}</td>
+                <td>{{el.name}}</td>
+                <td>{{el.surname}}</td>
+                <td>{{el.dept}}</td>
+                <td>{{el.draw_time}}</td>
+                <td>{{el.gift_name}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </lib-modal-dialog>
+
   </div>
+
+  </div>
+</div>
 
 
 

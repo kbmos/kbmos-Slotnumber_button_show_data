@@ -19,11 +19,14 @@ import { slot_5s } from "./dictionaries/slot_5s";
 	templateUrl: "./app.component.html"
 })
 export class AppComponent {
+  public showalldialog=false;
   public white:string="white"
   public transition:number=0;
   public lastItem: boolean=false;
   dropDownIsOpen: boolean = false;
   modalIsOpen: boolean = false;
+  modalIsOpen2: boolean = false;
+  public alluserluckylist:any=[];
   public no=1;
   public currentStatus:string="";
   public config: any;
@@ -68,7 +71,9 @@ export class AppComponent {
   public sequence:number=0;
   public gotItemIndex: number[]=[];
   public headElements = ['ลำดับที่','รหัสพนักงาน', 'ชื่อ','นามสกุล', 'แผนก', 'เวลา'];
+  public headElements2 = ['ลำดับที่','รหัสพนักงาน', 'ชื่อ','นามสกุล', 'แผนก', 'เวลา','รางวัล'];
   public   setZero:any ="";
+  public allgifts:number=0;
 	constructor(protected http: HttpClient) {
     this.Displacement=0;
     this.isLoading=false;
@@ -90,7 +95,7 @@ export class AppComponent {
       if(data.msg!="ไม่พบรางวัลใดๆในระบ"){
         console.log(data.msg);
         this.userLucky_List=data;
-        console.log("UserLucky_Listxxx",this.userLucky_List);
+        console.log("UserLucky_List",this.userLucky_List);
       }
       else{
         console.log('There was an error!');
@@ -98,6 +103,7 @@ export class AppComponent {
 
     }
   });
+  this.getAllUserList();
 
   this.getCurrentStatus();
   this.slot_1.push("0");
@@ -139,11 +145,22 @@ export class AppComponent {
     this.slot_index_5=this.resetIndexslot();
     this.visibleState=true;
   }
+  public getAllUserList(){
+    this.alluserluckylist=[];
+    this.http.get(`http://192.0.0.46:8095/api/newyear/NewYearGiftList`, {}).subscribe((res:any) =>{
+      const data:any = res;
+      this.allgifts=data.length;
+      this.alluserluckylist=data;
+      console.log("all Data",data);
+     });
+
+  }
 
 	public getCurrentStatus(){
     this.http.get(`http://192.0.0.46:8095/api/newyear/CurrentGift`, {}).subscribe((res:any) =>{
     const data:any = res;
     // console.log(data.currentGift.length);
+    console.log("DataCurrnt Gift API : ",data);
     if(data.currentGift.length!=0){
       this.giftname=data.currentGift[0].gift_name;
       this.qty=data.currentGift[0].qty;
@@ -153,16 +170,22 @@ export class AppComponent {
     }
     else {
       // window.alert();
+      this.showalldialog=true;
       this.giftname="ไม่มี";
       this.qty=0;
       this.sequence=0;
       this.draw="0";
       this.isLoading=true;
+
     }
    });
   }
   showModalDialog(){
     this.modalIsOpen = true;
+  }
+  showModalDialog2(){
+    this.modalIsOpen2 = true;
+    console.log("modalIsOpen2: ",this.modalIsOpen2 )
   }
   // public getLuckyUser(){
 
@@ -343,7 +366,7 @@ export class AppComponent {
         num++;
         this.draw=""+num;
       }
-
+      this.getAllUserList();
     }, 12400)
     console.log("this.isLoading = false");
 
