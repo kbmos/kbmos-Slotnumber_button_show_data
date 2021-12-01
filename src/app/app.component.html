@@ -81,19 +81,19 @@
 
       <div class="parts">
         <div class="part2" style="text-align: center;">
-          <div  style="text-align: center; font-size: 50px; margin-bottom: 30px;margin-top: 30px;" [hidden]="visibleState">
-            ชื่อ-นามสกุล:{{UserData}}
+          <!-- <img src="../assets/images/imgbin_santa-claus-wood-christmas-png.png" alt=""> -->
+          <div  style="height: 150px;">
+            <h5 style="text-align: center; font-size: 50px; margin-bottom: 30px;margin-top: 30px;" [hidden]="visibleState">ชื่อ-นามสกุล:{{UserData}}</h5>
           </div>
-
         </div>
       </div>
-      <div  [hidden]="visibleState"  style="text-align: center; color: white;font-size: 50px; margin-top: 50px;">
-        แผนก:{{department}}
+      <div>
+        <h5 [hidden]="visibleState"  style="text-align: center; color: white;font-size: 50px; margin-top: 50px;">แผนก:{{department}}</h5>
       </div>
       <div class="row">
         <div class="col-7">
           <div style="text-align: right; margin-top: 100px;">
-            <button class="btn btn-primary"  [disabled]="isLoading" [hidden]="lastItem" (click)="generateName()"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading, 'fa-check': !isLoading}"></i> Generate Sprint Name</button>
+            <button class="btn btn-primary" style="margin-top: 100px;" [disabled]="isLoading" [hidden]="lastItem" (click)="generateName()"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading, 'fa-check': !isLoading}"></i> Generate Sprint Name</button>
             <button class="btn btn-primary"  [hidden]="!lastItem" [disabled]="isLoading" (click)="NextReward()"  style="margin-right: 50px;"> Next Reward</button>
 
           </div>
