@@ -187,66 +187,7 @@ export class AppComponent {
     this.modalIsOpen2 = true;
     console.log("modalIsOpen2: ",this.modalIsOpen2 )
   }
-  // public getLuckyUser(){
 
-  //   this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyDraw`, {}).subscribe((res:any) =>{
-  //     var data=res;
-  //     console.log(data);
-  //     this.userLucky_Listspare=[];
-  //     this.UserData=""+data.luckydraw[0].name+" "+data.luckydraw[0].surname;
-  //     // var num=Number (this.draw);
-  //     if(data.luckydraw[0].dept=="00"){
-  //       this.department="สำนักงานใหญ่";
-  //     }
-  //     else if(data.luckydraw[0].dept=="01"){
-  //       this.department="บริหาร";
-  //     }
-  //     else{
-  //       this.department=data.luckydraw[0].dept;
-  //     }
-  //     this.empid =data.luckydraw[0].empid;
-  //     this.userLucky_Listspare = data.list;
-  //     this.lastItem=data.isLastItem;
-  //     console.log("userluckylist: ",this.userLucky_List);
-  //     console.log("UserData: "+this.UserData);
-  //     console.log("department: "+this.department);
-  //     console.log("empid: "+this.empid);
-
-  //     this.slot_index_1_before=this.slot_index_1;
-  //     this.slot_index_1=this.empid.substring(0,1);
-  //     console.log("slot_index_1",this.slot_index_1);
-
-  //     this.slot_index_2_before=this.slot_index_2;
-  //     this.slot_index_2=this.empid.substring(1,2);
-  //     console.log("slot_index_2",this.slot_index_2);
-
-  //     this.slot_index_3_before=this.slot_index_3;
-  //     this.slot_index_3=this.empid.substring(2,3);
-  //     console.log("slot_index_3",this.slot_index_3);
-
-  //     this.slot_index_4_before=this.slot_index_4;
-  //     this.slot_index_4=this.empid.substring(3,4);
-  //     console.log("slot_index_4",this.slot_index_4);
-
-  //     this.slot_index_5_before=this.slot_index_5;
-  //     this.slot_index_5=this.empid.substring(4,5);
-  //     console.log("slot_index_5",this.slot_index_5);
-
-  //     this.slot_index_1=Number (this.slot_index_1);
-  //     this.slot_index_2=Number (this.slot_index_2);
-  //     this.slot_index_3=Number (this.slot_index_3);
-  //     this.slot_index_4=Number (this.slot_index_4);
-  //     this.slot_index_5=Number (this.slot_index_5);
-
-  //     this.slot_index_1=this.setIndexslot(this.slot_index_1_before,this.slot_index_1);
-  //     this.slot_index_2=this.setIndexslot(this.slot_index_2_before,this.slot_index_2);
-  //     this.slot_index_3=this.setIndexslot(this.slot_index_3_before,this.slot_index_3);
-  //     this.slot_index_4=this.setIndexslot(this.slot_index_4_before,this.slot_index_4);
-  //     this.slot_index_5=this.setIndexslot(this.slot_index_5_before,this.slot_index_5,true);
-  //         console.log("slot1 Index: ["+this.slot_index_1+"]slot2 Index: ["+this.slot_index_2+"] Slot3 Index: ["+this.slot_index_3+"] slot4 Index: ["+this.slot_index_4+" ] slot5 Index: ["+this.slot_index_5+"]");
-  //   });
-
-  // }
   public getLuckyUser(){
 
     this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyDraw`).subscribe({
@@ -369,8 +310,6 @@ export class AppComponent {
       this.getAllUserList();
     }, 12400)
     console.log("this.isLoading = false");
-
-
 	}
 
   public playAudio(){
