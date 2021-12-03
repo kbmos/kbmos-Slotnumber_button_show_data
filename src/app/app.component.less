@@ -56,6 +56,7 @@ h3 {
 	// flex-direction: column ;
 	margin: auto auto auto auto ;
   padding: 0px 0px 0px 0px;
+
 	@media screen and ( min-width: 1175px ) {
 		flex-direction: row ;
 	}
@@ -76,10 +77,11 @@ h3 {
 
 .part {
 	height: @itemHeight ;
+
 	margin: auto auto auto auto ;
 	overflow: hidden ;
 	text-align: center ;
-  color: #ffffff;
+  color: #000;
 	@media screen and ( min-width: 1175px ) {
 		margin: 10px 10px 10px 10px ;
 		text-align: center ;
@@ -163,7 +165,9 @@ h3 {
 .item {
 	font-size: 50px ;
 	font-weight: 2000 ;
-  color: #ffffff;
+  color: red;
+  font-family: 'Cinzel', serif;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 	height: @itemHeight ;
 	line-height: @itemHeight ;
 	margin: 0px 0px 0px 0px ;

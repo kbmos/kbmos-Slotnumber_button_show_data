@@ -19,6 +19,7 @@ import { slot_5s } from "./dictionaries/slot_5s";
 	templateUrl: "./app.component.html"
 })
 export class AppComponent {
+
   public showalldialog=false;
   public white:string="white"
   public transition:number=0;
@@ -74,6 +75,8 @@ export class AppComponent {
   public headElements2 = ['ลำดับที่','รหัสพนักงาน', 'ชื่อ','นามสกุล', 'แผนก', 'เวลา','รางวัล'];
   public   setZero:any ="";
   public allgifts:number=0;
+  audiosound1:any;
+  audiosound2:any;
 	constructor(protected http: HttpClient) {
     this.Displacement=0;
     this.isLoading=false;
@@ -144,6 +147,7 @@ export class AppComponent {
     this.slot_index_4=this.resetIndexslot();
     this.slot_index_5=this.resetIndexslot();
     this.visibleState=true;
+    this.switchChange=false;
   }
   public getAllUserList(){
     this.alluserluckylist=[];
@@ -180,10 +184,31 @@ export class AppComponent {
     }
    });
   }
+  focusFunction(){
+    this.audiosound1 = new Audio();
+    this.audiosound1.src = "../assets/sounds/jingle_bells_instrumental_-1692404172081212068.mp3";
+    this.audiosound1.load();
+    this.audiosound1.play();
+  }
+  focusOutFunction(){
+    this.audiosound1.pause();
+  }
+  focusFunction2(){
+    this.audiosound2 = new Audio();
+    this.audiosound2.src = "../assets/sounds/20211203_-8962131256592367127.mp3";
+    this.audiosound2.load();
+    this.audiosound2.play();
+  }
+  focusOutFunction2(){
+    this.audiosound2.pause();
+  }
   showModalDialog(){
+    this.playAudio_click();
     this.modalIsOpen = true;
+    console.log("modalIsOpen2: ",this.modalIsOpen )
   }
   showModalDialog2(){
+    this.playAudio_click();
     this.modalIsOpen2 = true;
     console.log("modalIsOpen2: ",this.modalIsOpen2 )
   }
@@ -215,7 +240,7 @@ export class AppComponent {
         console.log("UserData: "+this.UserData);
         console.log("department: "+this.department);
         console.log("empid: "+this.empid);
-
+        console.log("All data Query",data);
         this.slot_index_1_before=this.slot_index_1;
         this.slot_index_1=this.empid.substring(0,1);
         console.log("slot_index_1",this.slot_index_1);
@@ -321,6 +346,12 @@ export class AppComponent {
   public playAudio_End(){
     let audio = new Audio();
     audio.src = "../assets/sounds/mixkit-coin-win.wav";
+    audio.load();
+    audio.play();
+  }
+  public playAudio_click(){
+    let audio = new Audio();
+    audio.src = "../assets/sounds/Mouse-Click-00-c-FesliyanStudios.com2.mp3";
     audio.load();
     audio.play();
   }
