@@ -130,7 +130,7 @@ export class AppComponent {
 
 
   public NextReward(){
-
+    this.playAudio_click();
     this.setZero = "setZero";
     this.lastItem=false;
     this.getCurrentStatus();
@@ -214,8 +214,8 @@ export class AppComponent {
   }
 
   public getLuckyUser(){
-
-    this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyDraw`).subscribe({
+      this.playAudio_click();
+      this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyDraw`).subscribe({
       next: (res: any)=> {
       console.log("if error dont show this");
       var data:any=res;
