@@ -9,7 +9,7 @@
     <h3 style="text-align: center; font-size: 50px; margin-top: 20px; margin-bottom: 10px;">รหัสพนักงาน</h3>
     <div class="row d-flex justify-content-center" style="text-align: center; background-color: white;height: 215px; width: 1200px; margin-left: 18%;box-shadow: 0 8px 12px 0 rgb(0, 0, 0), 0 12px 20px 0 rgb(0, 0, 0);border-radius: 20px;  ">
 
-      <div class="part" style="width: 200px;height: 177px;margin-bottom: 0px;margin-top: 20px;">
+      <div class="part" style="width: 200px;height: 178px;margin-bottom: 0px;margin-top: 20px;">
         <ul
 
           [ngClass]="setZero === 'setZero' ? 'Zero':'items1'"
@@ -24,7 +24,7 @@
       </div>
 
 
-      <div class="part" style="width: 200px;height: 177px;margin-bottom: 0px;margin-top: 20px;">
+      <div class="part" style="width: 200px;height: 178px;margin-bottom: 0px;margin-top: 20px;">
         <ul
         [ngClass]="setZero === 'setZero' ? 'Zero':'items2'"
           [style.transform]="( 'translateY( -' + ( slot_index_2 * 235 ) + 'px )' )">
@@ -37,7 +37,7 @@
         </ul>
       </div>
 
-      <div class="part" style="width: 200px;height: 177px;margin-bottom: 0px;margin-top: 20px;">
+      <div class="part" style="width: 200px;height: 178px;margin-bottom: 0px;margin-top: 20px;">
         <ul
         [ngClass]="setZero === 'setZero' ? 'Zero':'items3'"
           [style.transform]="( 'translateY( -' + ( slot_index_3 * 235 ) + 'px )' )">
@@ -50,7 +50,7 @@
         </ul>
       </div>
 
-      <div class="part" style="width: 200px;height: 177px;margin-bottom: 0px;margin-top: 20px;">
+      <div class="part" style="width: 200px;height: 178px;margin-bottom: 0px;margin-top: 20px;">
 
         <ul
         [ngClass]="setZero === 'setZero' ? 'Zero':'items4'"
@@ -64,7 +64,7 @@
         </ul>
       </div>
 
-      <div class="part" style="width: 200px;height: 177px;margin-bottom: 0px;margin-top: 20px;">
+      <div class="part" style="width: 200px;height: 178px;margin-bottom: 0px;margin-top: 20px;">
 
         <ul
         [ngClass]="setZero === 'setZero' ? 'Zero':'items5'"
@@ -101,7 +101,7 @@
         </div>
         <div class="col-5" style="height: 200px;" >
 
-            <img    class="fixed-bottom" [hidden]="modalIsOpen||modalIsOpen2||showalldialog"  [hidden]="showalldialog" (click)="showModalDialog()" src="../assets/images/gift-box-icon-png-53.png" alt="xssm"style="width: 280px;margin-bottom: 25px;margin-left:60%" (mouseover)="focusFunction()" (mouseout)="focusOutFunction()">
+            <img    class="fixed-bottom" [hidden]="modalIsOpen||modalIsOpen2||showalldialog"  [hidden]="showalldialog" (click)="showModalDialog()" src="../assets/images/gift-box-icon-png-53.png" alt="xssm"style="width: 280px;margin-bottom: 40px;margin-left:60%" (mouseover)="focusFunction()" (mouseout)="focusOutFunction()">
             <img  class="fixed-bottom" [hidden]="modalIsOpen||modalIsOpen2" [hidden]="modalIsOpen2" [ngClass]="showalldialog == true ? 'last':'notlast'" (click)="showModalDialog2()" src="../assets/images/kisspng-gift-christmas-clip-birthday-present-5b21357b894286.1373089115289030355622.png" alt="xssm" style="width: 400px;height: 400px; margin-bottom: px;margin-left:75%" (mouseover)="focusFunction2()" (mouseout)="focusOutFunction2()" >
 
 
@@ -112,8 +112,6 @@
 
 
       <div class="root">
-          <!-- <button  (click)="showModalDialog()" >
-          </button> -->
         <lib-modal-dialog [(isOpen)]="modalIsOpen" title="รางวัลผู้โชคดี">
           <div class="modal-content">
             <h2>  รางวัล "{{giftname}}" จำนวน "{{qty}}" รางวัล</h2>
@@ -125,7 +123,7 @@
                     <th *ngFor="let head of headElements" scope="col" >{{head}} </th>
                   </tr>
                 </thead>
-                <tbody>fs
+                <tbody>
                   <tr mdbTableCol *ngFor="let el of userLucky_List let i = index;">
 
                     <th scope="row">{{i+1}}</th>

@@ -96,9 +96,11 @@ export class AppComponent {
     next: res => {
       var data:any=res;
       if(data.msg!="ไม่พบรางวัลใดๆในระบ"){
-        console.log(data.msg);
-        this.userLucky_List=data;
-        console.log("UserLucky_List",this.userLucky_List);
+        console.log("data.msg แสดงข้อมูลตอบกลับ : ",data.msg);
+        console.log("data.gift : ",data.gift);
+        this.userLucky_List=data.gift;
+        console.log("UserLucky_List :success",this.userLucky_List);
+        console.log("UserLucky_List_data :success",data);
       }
       else{
         console.log('There was an error!');
@@ -203,15 +205,17 @@ export class AppComponent {
     this.audiosound2.pause();
   }
   showModalDialog(){
+
     this.playAudio_click();
     this.modalIsOpen = true;
-    console.log("modalIsOpen2: ",this.modalIsOpen )
+    console.log("modalIsOpen: ",this.modalIsOpen )
   }
   showModalDialog2(){
     this.playAudio_click();
     this.modalIsOpen2 = true;
     console.log("modalIsOpen2: ",this.modalIsOpen2 )
   }
+
 
   public getLuckyUser(){
       this.playAudio_click();
@@ -236,7 +240,7 @@ export class AppComponent {
         this.empid =data.luckydraw[0].empid;
         this.userLucky_Listspare = data.list;
         this.lastItem=data.isLastItem;
-        console.log("userluckylist: ",this.userLucky_List);
+        console.log("userluckylistSpare: ",this.userLucky_Listspare);
         console.log("UserData: "+this.UserData);
         console.log("department: "+this.department);
         console.log("empid: "+this.empid);
