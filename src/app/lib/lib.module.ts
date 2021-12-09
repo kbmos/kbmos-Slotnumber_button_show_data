@@ -22,7 +22,8 @@ import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.com
     DropDownLabelOpenedDirective,
     DropDownContentDirective,
     LifeCycleDirective,
-    ModalDialogComponent
+    ModalDialogComponent,
+
   ],
   exports: [
     PopupRectDirective,

@@ -10,6 +10,7 @@ import { slot_3s } from "./dictionaries/slot_3s";
 import { slot_4s } from "./dictionaries/slot_4s";
 import { slot_5s } from "./dictionaries/slot_5s";
 
+
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
 
@@ -39,6 +40,7 @@ export class AppComponent {
   public department:any;
   public visibleState:boolean=true;
   public isLoading: boolean;
+  public isLoading2: boolean=false;
 	public descriptionIndex: number;
 	public descriptions: string[];
 	public sprintName: string;
@@ -51,7 +53,7 @@ export class AppComponent {
   public slot_index_1=0;
   public slot_index_1_before:number=0;
   public draw:string="";
-
+  public hidedeletelasteddraw:boolean=false;
   public slot_2: string[]=slot_2s;
   public slot_index_2=0;
   public slot_index_2_before:number=0;
@@ -78,6 +80,7 @@ export class AppComponent {
   audiosound1:any;
   audiosound2:any;
 	constructor(protected http: HttpClient) {
+
     this.Displacement=0;
     this.isLoading=false;
 		this.descriptionIndex = 0;
@@ -86,28 +89,14 @@ export class AppComponent {
 		this.thingIndex = 0;
 		this.things = things;
     this.switchChange=false;
+
 	}
   elements: any = [];
 
   ngOnInit() {
   // this.userLucky_List=[];
   console.log("UserLucky_list ",this.userLucky_List);
-  this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyPersons`).subscribe({
-    next: res => {
-      var data:any=res;
-      if(data.msg!="ไม่พบรางวัลใดๆในระบ"){
-        console.log("data.msg แสดงข้อมูลตอบกลับ : ",data.msg);
-        console.log("data.gift : ",data.gift);
-        this.userLucky_List=data.gift;
-        console.log("UserLucky_List :success",this.userLucky_List);
-        console.log("UserLucky_List_data :success",data);
-      }
-      else{
-        console.log('There was an error!');
-      }
-
-    }
-  });
+  this.refreshcurrentgift();
   this.getAllUserList();
 
   this.getCurrentStatus();
@@ -130,12 +119,27 @@ export class AppComponent {
 
   }
 
+  public refreshcurrentgift(){
+    this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyPersons`).subscribe({
+      next: res => {
+        var data:any=res;
 
-  public NextReward(){
-    this.playAudio_click();
+
+        if(data.msg!="ไม่พบรางวัลใดๆในระบ"){
+          console.log("data.msg แสดงข้อมูลตอบกลับ : ",data.msg);
+          this.userLucky_List=data;
+          console.log("UserLucky_List :success",this.userLucky_List);
+        }
+        else{
+          console.log('There was an error!');
+        }
+
+      }
+    });
+
+  }
+  public resettostart(){
     this.setZero = "setZero";
-    this.lastItem=false;
-    this.getCurrentStatus();
     this.userLucky_List=[];
     this.slot_index_1_before=0;
     this.slot_index_2_before=0;
@@ -148,14 +152,32 @@ export class AppComponent {
     this.slot_index_3=this.resetIndexslot();
     this.slot_index_4=this.resetIndexslot();
     this.slot_index_5=this.resetIndexslot();
+    this.switchChange=false;
+  }
+  public NextReward(){
+    this.playAudio_click();
+    this.setZero = "setZero";
+    this.lastItem=false;
+    this.getCurrentStatus();
+    this.resettostart();
     this.visibleState=true;
     this.switchChange=false;
+
   }
   public getAllUserList(){
     this.alluserluckylist=[];
     this.http.get(`http://192.0.0.46:8095/api/newyear/NewYearGiftList`, {}).subscribe((res:any) =>{
       const data:any = res;
       this.allgifts=data.length;
+      console.log("allgifts",this.allgifts);
+
+      console.log("all gift : ",this.allgifts);
+      for(var i=0;i<data.length;i++){
+
+        if(data[i].draw_time!=null){
+          data[i].draw_time=data[i].draw_time.substring(11,19);
+        }
+      }
       this.alluserluckylist=data;
       console.log("all Data",data);
      });
@@ -165,8 +187,15 @@ export class AppComponent {
 	public getCurrentStatus(){
     this.http.get(`http://192.0.0.46:8095/api/newyear/CurrentGift`, {}).subscribe((res:any) =>{
     const data:any = res;
-    // console.log(data.currentGift.length);
     console.log("DataCurrnt Gift API : ",data);
+    console.log("isFirstPerson : ",data.isFirstPerson);
+    if(data.isFirstPerson==true){
+      this.hidedeletelasteddraw=true;
+      console.log(" hidedeletelasteddraw :",this.hidedeletelasteddraw);
+    }
+    else{
+      this.hidedeletelasteddraw=false;
+    }
     if(data.currentGift.length!=0){
       this.giftname=data.currentGift[0].gift_name;
       this.qty=data.currentGift[0].qty;
@@ -175,7 +204,7 @@ export class AppComponent {
 	    console.log("giftname : "+this.giftname+" qty : "+this.qty+" sequence : ",this.sequence+" LastItem : ",this.lastItem);
     }
     else {
-      // window.alert();
+      // รางวัลหมดแล้ว
       this.showalldialog=true;
       this.giftname="ไม่มี";
       this.qty=0;
@@ -208,12 +237,10 @@ export class AppComponent {
 
     this.playAudio_click();
     this.modalIsOpen = true;
-    console.log("modalIsOpen: ",this.modalIsOpen )
   }
   showModalDialog2(){
     this.playAudio_click();
     this.modalIsOpen2 = true;
-    console.log("modalIsOpen2: ",this.modalIsOpen2 )
   }
 
 
@@ -221,7 +248,6 @@ export class AppComponent {
       this.playAudio_click();
       this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyDraw`).subscribe({
       next: (res: any)=> {
-      console.log("if error dont show this");
       var data:any=res;
       if(data.msg!="ไม่พบพนักงานพนักงานลงทะเบียนร่วมกิจกรรม"){
         console.log(data);
@@ -238,6 +264,15 @@ export class AppComponent {
           this.department=data.luckydraw[0].dept;
         }
         this.empid =data.luckydraw[0].empid;
+
+        for(var i=0;i<data.list.length;i++){
+
+          if(data.list[i].draw!=null){
+
+
+            data.list[i].draw=data.list[i].draw.substring(11,19);
+          }
+        }
         this.userLucky_Listspare = data.list;
         this.lastItem=data.isLastItem;
         console.log("userluckylistSpare: ",this.userLucky_Listspare);
@@ -247,23 +282,18 @@ export class AppComponent {
         console.log("All data Query",data);
         this.slot_index_1_before=this.slot_index_1;
         this.slot_index_1=this.empid.substring(0,1);
-        console.log("slot_index_1",this.slot_index_1);
 
         this.slot_index_2_before=this.slot_index_2;
         this.slot_index_2=this.empid.substring(1,2);
-        console.log("slot_index_2",this.slot_index_2);
 
         this.slot_index_3_before=this.slot_index_3;
         this.slot_index_3=this.empid.substring(2,3);
-        console.log("slot_index_3",this.slot_index_3);
 
         this.slot_index_4_before=this.slot_index_4;
         this.slot_index_4=this.empid.substring(3,4);
-        console.log("slot_index_4",this.slot_index_4);
 
         this.slot_index_5_before=this.slot_index_5;
         this.slot_index_5=this.empid.substring(4,5);
-        console.log("slot_index_5",this.slot_index_5);
 
         this.slot_index_1=Number (this.slot_index_1);
         this.slot_index_2=Number (this.slot_index_2);
@@ -276,7 +306,7 @@ export class AppComponent {
         this.slot_index_3=this.setIndexslot(this.slot_index_3_before,this.slot_index_3);
         this.slot_index_4=this.setIndexslot(this.slot_index_4_before,this.slot_index_4);
         this.slot_index_5=this.setIndexslot(this.slot_index_5_before,this.slot_index_5,true);
-        console.log("slot1 Index: ["+this.slot_index_1+"]slot2 Index: ["+this.slot_index_2+"] Slot3 Index: ["+this.slot_index_3+"] slot4 Index: ["+this.slot_index_4+" ] slot5 Index: ["+this.slot_index_5+"]");
+
       }
       else{
         this.isLoading=true;
@@ -290,6 +320,25 @@ export class AppComponent {
   });
 
   }
+  DeleteLastRecord(){
+    if (window.confirm("ต้องการที่จะรีเซ็ตการสุ่มก่อนหน้าไหม?")) {
+      this.http.put('http://192.0.0.46:8095/api/newyear/CancelLastestDraw',null).subscribe((res:any) =>{
+      const data:any = res;
+      console.log(data);
+      this.refreshcurrentgift();
+      this.getCurrentStatus();
+      this.getAllUserList();
+      this.resettostart();
+      this.lastItem=false;
+      this.visibleState=true;
+      this.isLoading=false;
+      this.showalldialog=false;
+      });
+
+    }
+
+
+  }
 	public generateName() : void {
     this.setZero="";
     setTimeout(() => {
@@ -297,32 +346,31 @@ export class AppComponent {
     }, 500)
 
     this.getLuckyUser();
-    console.log("lucky",this.luckyUser_detail);
     // this.UserData=this.luckyUser_detail.
     this.visibleState=true;
-    console.log("this.isLoading = true");
     this.isLoading = true;
-    console.log(this.slot_1);
+    this.isLoading2 = true;
 		this.shareSprintNameWithUser( this.sprintName ); //แสดง data ใน Log
     setTimeout(() => {
-      // console.log("Waiting")
+
       this.playAudio_End();
     }, 4100)
     setTimeout(() => {
-      // console.log("Waiting")
+
       this.playAudio_End();
     }, 6200)
     setTimeout(() => {
-      // console.log("Waiting")
+
       this.playAudio_End();
     }, 8300)
     setTimeout(() => {
-      // console.log("Waiting")
+
       this.playAudio_End();
     }, 10400)
     setTimeout(() => {
-      // console.log("Waiting")
+
       this.isLoading=false;
+      this.isLoading2=false;
       this.visibleState=false;
       this.playAudioVictory();
       this.userLucky_List=[];
@@ -338,7 +386,7 @@ export class AppComponent {
       }
       this.getAllUserList();
     }, 12400)
-    console.log("this.isLoading = false");
+
 	}
 
   public playAudio(){
@@ -371,17 +419,17 @@ export class AppComponent {
   public setIndexslot(currentIndex:number,data : number ,last:boolean=false){
 
     if(currentIndex===0){ //ครั้งแรก ดีดไปสูง
-      console.log("ครั้งแรก ดีดไปสูง");
+      console.log("//ครั้งแรก ดีดไปสูง");
       return data+1991;
     }
     else if(this.switchChange==false){ //เลขสูง ดีดไปต่ำ
-      console.log("เลขสูง ดีดไปต่ำ");
+      console.log("//เลขสูง ดีดไปต่ำ");
       if(last==true)
        this.switchChange=true;
       return data+1;
     }
     else { //เลขต่ำ ดีดไปสูง
-      console.log("เลขต่ำ ดีดไปสูง");
+      console.log("//เลขต่ำ ดีดไปสูง");
       if(last==true)
         this.switchChange=false;
       return data+1991
@@ -394,7 +442,7 @@ export class AppComponent {
 		var textarea: HTMLTextAreaElement = document.createElement( "textarea" );
 		textarea.style.opacity = "0";
 		textarea.style.position = "fixed";
-		//console.log("VALUE : ",value);
+
 		textarea.value = value;
 		// Set and select the value (creating an active Selection range).
 		document.body.appendChild( textarea );
@@ -431,24 +479,21 @@ export class AppComponent {
 
 	// I return a random index for selection within the given collection.
 	private nextIndex( currentIndex: number, collection: any[] ) : number {
-		// console.log("Current Index",currentIndex)
+
 		var nextIndex = currentIndex;
 		var length = this.data_server.length;
-    // // var length = collection.length;
-    // console.log(length);
 
-		// Keep generating a random index until we get a non-matching value. This just
-		// ensures some "change" from generation to generation.
+
+
 		while ( nextIndex === currentIndex ) { //หมุนไปหาค่าที่กำหนด
-			// console.log("Loop.........................");
+
 			nextIndex = ( Math.floor( Math.random() * length ) );
-      // console.log("User Index win : ",nextIndex);
+
       if(nextIndex==0){
         nextIndex=1;
       }
       else if(this.switchChange==true){
         nextIndex+=(this.data_server.length);
-        // console.log("Real Current Index: "+nextIndex);
       }
 
 

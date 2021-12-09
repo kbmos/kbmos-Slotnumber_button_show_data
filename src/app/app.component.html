@@ -94,15 +94,16 @@
       <div class="row">
         <div class="col-7">
           <div style="text-align: right; margin-top: 10px;">
-            <button class="btn btn-primary fixed-bottom" [hidden]="(!lastItem)&&modalIsOpen" [hidden]="(!lastItem)&&modalIsOpen2" [disabled]="isLoading" [hidden]="lastItem" (click)="generateName()" style="margin-left: 820px;margin-bottom: 100px;"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading, 'fa-check': !isLoading}"></i> Generate Sprint Name</button>
+            <button class="btn btn-dark  fixed-bottom"  [hidden]="(!hidedeletelasteddraw)&&modalIsOpen" [hidden]="(!hidedeletelasteddraw)&&modalIsOpen2"   [hidden]="hidedeletelasteddraw"  [disabled]="isLoading2" (click)="DeleteLastRecord()" style="margin-left: 100px;margin-bottom: 100px;"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading, 'fa-check': !isLoading}"></i>ผู้จับฉลากไม่แสดงตัว</button>
+            <button class="btn btn-primary fixed-bottom" [hidden]="(!lastItem)&&modalIsOpen" [hidden]="(!lastItem)&&modalIsOpen2" [disabled]="isLoading" [hidden]="lastItem" (click)="generateName()" style="margin-left: 851px;margin-bottom: 100px;"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading, 'fa-check': !isLoading}"></i>กดปุ่มสุ่มรางวัล</button>
             <button class="btn btn-primary fixed-bottom" [hidden]="(lastItem)&&modalIsOpen" [hidden]="(lastItem)&&modalIsOpen2"  [hidden]="!lastItem" [disabled]="isLoading" (click)="NextReward()"  style="margin-left: 850px;margin-bottom: 100px;"> Next Reward</button>
 
           </div>
         </div>
         <div class="col-5" style="height: 200px;" >
 
-            <img    class="fixed-bottom" [hidden]="modalIsOpen||modalIsOpen2||showalldialog"  [hidden]="showalldialog" (click)="showModalDialog()" src="../assets/images/gift-box-icon-png-53.png" alt="xssm"style="width: 280px;margin-bottom: 40px;margin-left:60%" (mouseover)="focusFunction()" (mouseout)="focusOutFunction()">
-            <img  class="fixed-bottom" [hidden]="modalIsOpen||modalIsOpen2" [hidden]="modalIsOpen2" [ngClass]="showalldialog == true ? 'last':'notlast'" (click)="showModalDialog2()" src="../assets/images/kisspng-gift-christmas-clip-birthday-present-5b21357b894286.1373089115289030355622.png" alt="xssm" style="width: 400px;height: 400px; margin-bottom: px;margin-left:75%" (mouseover)="focusFunction2()" (mouseout)="focusOutFunction2()" >
+            <img  class="fixed-bottom" [hidden]="modalIsOpen||modalIsOpen2||showalldialog"  [hidden]="showalldialog" (click)="showModalDialog()" src="../assets/images/gift-box-icon-png-53.png" alt="xssm"style="width: 280px;margin-bottom: 40px;margin-left:60%"  muted="muted" (mouseover)="focusFunction()" (mouseout)="focusOutFunction()">
+            <img  class="fixed-bottom" [hidden]="modalIsOpen||modalIsOpen2" [ngClass]="showalldialog == true ? 'last':'notlast'" (click)="showModalDialog2()" src="../assets/images/kisspng-gift-christmas-clip-birthday-present-5b21357b894286.1373089115289030355622.png"  muted="muted" alt="xssm" style="width: 400px;height: 400px; margin-bottom: px;margin-left:75%" (mouseover)="focusFunction2()" (mouseout)="focusOutFunction2()" >
 
 
         </div>
