@@ -1,6 +1,6 @@
 // Import the core angular services.
 import { Component } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 // Import the application components and services.
 import { descriptions } from "./dictionaries/descriptions";
 import { things } from "./dictionaries/things";
@@ -20,6 +20,19 @@ import { slot_5s } from "./dictionaries/slot_5s";
 	templateUrl: "./app.component.html"
 })
 export class AppComponent {
+  public firstname_localstorage:any=[];
+  public lastname_localstorage:any=[];
+  public empid_localstorage:any=[];
+  public department_localstorage:any=[];
+
+  public giftname_message:any="";
+  public giftseq_message:any="";
+  public giftqty_message:any="";
+  public firstname_message:any="";
+  public lastname_message:any="";
+  public empid_message:any="";
+  public department_message:any="";
+  public draw_message:any=0;
 
   public showalldialog=false;
   public white:string="white"
@@ -95,11 +108,16 @@ export class AppComponent {
 
   ngOnInit() {
   // this.userLucky_List=[];
+  localStorage.setItem('firstname_localstorage', this.firstname_localstorage);
+  localStorage.setItem('lastname_localstorage', this.lastname_localstorage);
+  localStorage.setItem('empid_localstorage', this.empid_localstorage);
+  localStorage.setItem('department_localstorage', this.department_localstorage);
+
   console.log("UserLucky_list ",this.userLucky_List);
   this.refreshcurrentgift();
   this.getAllUserList();
-
   this.getCurrentStatus();
+
   this.slot_1.push("0");
   this.slot_2.push("0");
   this.slot_3.push("0");
@@ -127,7 +145,7 @@ export class AppComponent {
 
         if(data.msg!="ไม่พบรางวัลใดๆในระบ"){
           console.log("data.msg แสดงข้อมูลตอบกลับ : ",data.msg);
-          this.userLucky_List=data;
+
           console.log("UserLucky_List :success",this.userLucky_List);
         }
         else{
@@ -184,7 +202,7 @@ export class AppComponent {
 
   }
 
-	public getCurrentStatus(){
+	public getCurrentStatus(){ //เอาค่า gift_name qty sequence draw
     this.http.get(`http://192.0.0.46:8095/api/newyear/CurrentGift`, {}).subscribe((res:any) =>{
     const data:any = res;
     console.log("DataCurrnt Gift API : ",data);
@@ -198,9 +216,18 @@ export class AppComponent {
     }
     if(data.currentGift.length!=0){
       this.giftname=data.currentGift[0].gift_name;
+      this.giftname_message=data.currentGift[0].gift_name;
+
       this.qty=data.currentGift[0].qty;
+      this.giftqty_message=data.currentGift[0].qty;
+      console.log("giftqty_message :",this.giftqty_message)
       this.sequence=data.currentGift[0].sequence;
+      this.giftseq_message=data.currentGift[0].sequence;
+
       this.draw=data.currentGift[0].draw;
+      this.draw_message=data.currentGift[0].draw;
+
+      console.log("giftname : "+this.giftname_message+" qty : "+this.qty+" giftseq_message : ",this.giftseq_message+" draw : ",this.draw_message);
 	    console.log("giftname : "+this.giftname+" qty : "+this.qty+" sequence : ",this.sequence+" LastItem : ",this.lastItem);
     }
     else {
@@ -244,11 +271,12 @@ export class AppComponent {
   }
 
 
-  public getLuckyUser(){
+  public getLuckyUser(){ //จับรางวัล
       this.playAudio_click();
       this.http.get(`http://192.0.0.46:8095/api/newyear/LuckyDraw`).subscribe({
       next: (res: any)=> {
       var data:any=res;
+      console.log("Lucky draw Data: ");
       if(data.msg!="ไม่พบพนักงานพนักงานลงทะเบียนร่วมกิจกรรม"){
         console.log(data);
         this.userLucky_Listspare=[];
@@ -263,6 +291,43 @@ export class AppComponent {
         else{
           this.department=data.luckydraw[0].dept;
         }
+
+        this.firstname_message=data.luckydraw[0].name;
+        this.lastname_message=data.luckydraw[0].surname;
+        this.empid_message=data.luckydraw[0].empid;
+        this.department_message=this.department;
+
+        var firstname_localstorage_spare:any=[];
+        var lastname_localstorage:any=[];
+        var empid_localstorage:any=[];
+        var department_localstorage:any=[];
+
+        // firstname_localstorage_spare=localStorage.getItem('firstname_localstorage');
+        // lastname_localstorage=localStorage.getItem('lastname_localstorage');
+        // empid_localstorage=localStorage.getItem('empid_localstorage');
+        // department_localstorage=localStorage.getItem('department_localstorage');
+        // department_localstorage.
+        // this.firstname_localstorage=firstname_localstorage_spare;
+        // this.lastname_localstorage=lastname_localstorage;
+        // this.empid_localstorage=empid_localstorage;
+        // this.department_localstorage=department_localstorage;
+
+        // this.firstname_localstorage.push(this.firstname_message);
+        // this.lastname_localstorage.push(this.lastname_message);
+        // this.empid_localstorage.push(this.empid_message);
+        // this.department_localstorage.push(this.department_message);
+
+        // console.log("firstname_localstorage: ",this.firstname_localstorage);
+        // console.log("lastname_localstorage: ",this.lastname_localstorage);
+        // console.log("empid_localstorage: ",this.empid_localstorage);
+        // console.log("department_localstorage: ",this.department_localstorage);
+
+        // localStorage.setItem('firstname_localstorage', this.firstname_localstorage);
+        // localStorage.setItem('lastname_localstorage', this.lastname_localstorage);
+        // localStorage.setItem('empid_localstorage', this.empid_localstorage);
+        // localStorage.setItem('department_localstorage', this.department_localstorage);
+
+
         this.empid =data.luckydraw[0].empid;
 
         for(var i=0;i<data.list.length;i++){
@@ -275,11 +340,13 @@ export class AppComponent {
         }
         this.userLucky_Listspare = data.list;
         this.lastItem=data.isLastItem;
+
         console.log("userluckylistSpare: ",this.userLucky_Listspare);
         console.log("UserData: "+this.UserData);
         console.log("department: "+this.department);
         console.log("empid: "+this.empid);
         console.log("All data Query",data);
+
         this.slot_index_1_before=this.slot_index_1;
         this.slot_index_1=this.empid.substring(0,1);
 
@@ -323,17 +390,38 @@ export class AppComponent {
   DeleteLastRecord(){
     if (window.confirm("ต้องการที่จะรีเซ็ตการสุ่มก่อนหน้าไหม?")) {
       this.http.put('http://192.0.0.46:8095/api/newyear/CancelLastestDraw',null).subscribe((res:any) =>{
-      const data:any = res;
-      console.log(data);
+      const data:any = res.cancel[0];
+      console.log("DeleteLastRecord: ",data);
       this.refreshcurrentgift();
       this.getCurrentStatus();
+
       this.getAllUserList();
       this.resettostart();
       this.lastItem=false;
       this.visibleState=true;
       this.isLoading=false;
       this.showalldialog=false;
+      this.giftname_message=data.gift;
+      var draw=data.no;
+      this.empid_message=data.empid;
+      this.firstname_message=data.name;
+      this.lastname_message=data.surname;
+      this.department_message=data.dept;
+      this.http.get(`http://192.0.0.46:8095/api/newyear/CurrentGift`, {}).subscribe((res:any) =>{
+        const data:any = res;
+        console.log("DeleteLastRecord_find_qty",data.currentGift[0].qty);
+        this.giftqty_message=data.currentGift[0].qty;
+        console.log("giftqty_message_Delete_Record: ",this.giftqty_message);
+        this.http.post(`http://192.0.0.46:8095/api/newyear/LineMessage?message=%0aท่านไม่ได้มายืนยันตามกำหนด PVOFamilyจะทำการจับรางวัลใหม่%0aรางวัล " ${this.giftname_message}" จำนวน "${this.giftqty_message}" รางวัล %0aจับรางวัลครั้งที่ ${draw}  %0aผู้โชคดีคือ: ${this.firstname_message} ${this.lastname_message} %0aรหัสผนักงาน: ${this.empid_message }%0aแผนก: ${this.department_message }`,null).subscribe({
+          next: res => {
+            console.log("2");
+            var data:any=res;
+            console.log(data);
+          }
+          });
       });
+
+    });
 
     }
 
@@ -375,16 +463,20 @@ export class AppComponent {
       this.playAudioVictory();
       this.userLucky_List=[];
       this.userLucky_List=this.userLucky_Listspare;
-      if(this.lastItem!=true)
-      {
+        console.log("this.lastItem!=true");
         this.getCurrentStatus();
-      }
-      else{
         var num=Number (this.draw);
         num++;
         this.draw=""+num;
-      }
+
       this.getAllUserList();
+      // this.http.post(`http://192.0.0.46:8095/api/newyear/LineMessage?message=${this.draw} ${this.department} %0a ส่งข้อความผู้โชคดี`,null).subscribe({
+        this.http.post(`http://192.0.0.46:8095/api/newyear/LineMessage?message=%0aPVOFamily ขอแสดงความยินดีกับท่านที่ได้รับรางวัล และโปรดกรุณามายืนยันการรับรางวัล%0aรางวัล "${this.giftname_message}" จำนวน "${this.giftqty_message}" รางวัล %0aจับรางวัลครั้งที่ ${this.draw}  %0aผู้โชคดีคือ: ${this.firstname_message} ${this.lastname_message} %0aรหัสผนักงาน: ${this.empid_message }%0aแผนก: ${this.department_message }`,null).subscribe({
+      next: res => {
+        var data:any=res;
+        console.log(data);
+      }
+    });
     }, 12400)
 
 	}
