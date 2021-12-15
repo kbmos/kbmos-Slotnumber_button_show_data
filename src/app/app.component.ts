@@ -9,7 +9,7 @@ import { slot_2s } from "./dictionaries/slot_2s";
 import { slot_3s } from "./dictionaries/slot_3s";
 import { slot_4s } from "./dictionaries/slot_4s";
 import { slot_5s } from "./dictionaries/slot_5s";
-
+import  *  as  data from '../assets/json_files/test_flex.json'
 
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
@@ -105,9 +105,180 @@ export class AppComponent {
 
 	}
   elements: any = [];
+  courseList = [
 
+  {
+    "messages":[
+        {
+            "type":"flex",
+            "altText":"Flex Message",
+            "contents":{
+  "type": "bubble",
+  "hero": {
+    "type": "image",
+    "url": "https://d33wubrfki0l68.cloudfront.net/874dde41bca3a1105fe54a7563a2ade5acf0da12/85e83/_nuxt/img/gift360x360.135e5fe.gif",
+    "animated":true,
+    "size": "full",
+    "aspectRatio": "20:13",
+    "aspectMode": "cover",
+    "position": "relative"
+  },
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "ขอแสดงความยินดี",
+        "weight": "bold",
+        "size": "xl",
+        "wrap": true,
+        "align": "center"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "margin": "lg",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "separator"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "ผู้โชคดี",
+                "flex": 2,
+                "size": "md",
+                "color": "#aaaaaa"
+              },
+              {
+                "type": "text",
+                "text": "คุณทดสอบ ทดสอบ",
+                "size": "md",
+                "flex": 5
+              }
+            ],
+            "spacing": "sm",
+            "margin": "md"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "รหัส",
+                "flex": 2,
+                "color": "#aaaaaa",
+                "size": "md"
+              },
+              {
+                "type": "text",
+                "text": "00000",
+                "flex": 5,
+                "size": "md"
+              }
+            ],
+            "spacing": "sm"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "แผนก",
+                "flex": 2,
+                "size": "md",
+                "color": "#aaaaaa"
+              },
+              {
+                "type": "text",
+                "text": "test",
+                "flex": 5,
+                "size": "md"
+              }
+            ],
+            "spacing": "sm"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "text",
+                "text": "รางวัล",
+                "size": "md",
+                "flex": 2,
+                "color": "#aaaaaa"
+              },
+              {
+                "type": "text",
+                "text": "ตู้เย็น จำนวน 3 รางวัล",
+                "wrap": true,
+                "size": "md",
+                "flex": 5
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "text",
+                "text": "ครั้งที่",
+                "color": "#aaaaaa",
+                "size": "md",
+                "flex": 2
+              },
+              {
+                "type": "text",
+                "text": "1",
+                "wrap": true,
+                "color": "#666666",
+                "size": "md",
+                "flex": 5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "type": "box",
+    "layout": "vertical",
+    "spacing": "sm",
+    "contents": [
+      {
+        "type": "text",
+        "text": "กรุณาแสดงตันยืนยันการรับรางวัลกับเจ้าหน้าที่ หากไม่ทำการยืนยันจะถือเป็นการสละสิทธิ์",
+        "wrap": true
+      },
+      {
+        "type": "spacer",
+        "size": "sm"
+      }
+    ],
+    "flex": 0
+  }
+  }
+        }
+    ]
+  }
+
+
+  ];
   ngOnInit() {
   // this.userLucky_List=[];
+  console.log("Get Json data", this.courseList);
   localStorage.setItem('firstname_localstorage', this.firstname_localstorage);
   localStorage.setItem('lastname_localstorage', this.lastname_localstorage);
   localStorage.setItem('empid_localstorage', this.empid_localstorage);
@@ -145,8 +316,8 @@ export class AppComponent {
 
         if(data.msg!="ไม่พบรางวัลใดๆในระบ"){
           console.log("data.msg แสดงข้อมูลตอบกลับ : ",data.msg);
-
-          console.log("UserLucky_List :success",this.userLucky_List);
+          this.userLucky_List=data;
+          console.log("UserLucky_List :success",data);
         }
         else{
           console.log('There was an error!');
@@ -412,13 +583,33 @@ export class AppComponent {
         console.log("DeleteLastRecord_find_qty",data.currentGift[0].qty);
         this.giftqty_message=data.currentGift[0].qty;
         console.log("giftqty_message_Delete_Record: ",this.giftqty_message);
-        this.http.post(`http://192.0.0.46:8095/api/newyear/LineMessage?message=%0aท่านไม่ได้มายืนยันตามกำหนด PVOFamilyจะทำการจับรางวัลใหม่%0aรางวัล " ${this.giftname_message}" จำนวน "${this.giftqty_message}" รางวัล %0aจับรางวัลครั้งที่ ${draw}  %0aผู้โชคดีคือ: ${this.firstname_message} ${this.lastname_message} %0aรหัสผนักงาน: ${this.empid_message }%0aแผนก: ${this.department_message }`,null).subscribe({
+        this.http.post(``,null).subscribe({
           next: res => {
             console.log("2");
             var data:any=res;
             console.log(data);
           }
           });
+        // this.http.post(`http://192.0.0.46:8095/api/newyear/LineMessage?message=%0aคุณ ${this.firstname_message} ${this.lastname_message} รหัสผนักงาน: ${this.empid_message } แผนก: ${this.department_message} ท่านไม่ได้มายืนยันตามกำหนด PVOFamily จะทำการจับรางวัล " ${this.giftname_message}" จำนวน "${this.giftqty_message}" รางวัล ครั้งที่ ${draw} ใหม่!  `,null).subscribe({
+        //   next: res => {
+        //     console.log("2");
+        //     var data:any=res;
+        //     console.log(data);
+        //   }
+        //   });
+        var giftname_message=this.giftname_message+" จำนวน "+this.giftqty_message + " รางวัล"
+        this.http.post(`http://192.0.0.46:8095/api/newyear/LineFlexMessage?name=${this.firstname_message}&surname=${this.lastname_message}&empid=${this.empid_message }&dept=${this.department_message }&gift=${giftname_message}&no=${draw}&isCancel=true`,null).subscribe({
+          next: res => {
+            console.log("2");
+            var data:any=res;
+            console.log("server:",data);
+          },
+          error: res =>{
+            console.log("error ",res);
+
+          }
+          });
+
       });
 
     });
@@ -471,12 +662,24 @@ export class AppComponent {
 
       this.getAllUserList();
       // this.http.post(`http://192.0.0.46:8095/api/newyear/LineMessage?message=${this.draw} ${this.department} %0a ส่งข้อความผู้โชคดี`,null).subscribe({
-        this.http.post(`http://192.0.0.46:8095/api/newyear/LineMessage?message=%0aPVOFamily ขอแสดงความยินดีกับท่านที่ได้รับรางวัล และโปรดกรุณามายืนยันการรับรางวัล%0aรางวัล "${this.giftname_message}" จำนวน "${this.giftqty_message}" รางวัล %0aจับรางวัลครั้งที่ ${this.draw}  %0aผู้โชคดีคือ: ${this.firstname_message} ${this.lastname_message} %0aรหัสผนักงาน: ${this.empid_message }%0aแผนก: ${this.department_message }`,null).subscribe({
-      next: res => {
-        var data:any=res;
-        console.log(data);
-      }
-    });
+    //     this.http.post(`http://192.0.0.46:8095/api/newyear/LineMessage?message=%0aPVOFamily ขอแสดงความยินดีกับท่านที่ได้รับรางวัล และโปรดกรุณามายืนยันการรับรางวัล%0aรางวัล "${this.giftname_message}" จำนวน "${this.giftqty_message}" รางวัล %0aจับรางวัลครั้งที่ ${this.draw}  %0aผู้โชคดีคือ: ${this.firstname_message} ${this.lastname_message} %0aรหัสผนักงาน: ${this.empid_message }%0aแผนก: ${this.department_message }`,null).subscribe({
+    //   next: res => {
+    //     var data:any=res;
+    //     console.log(data);
+    //   }
+    // });
+    var giftname_message=this.giftname_message+" จำนวน "+this.giftqty_message + " รางวัล"
+    this.http.post(`http://192.0.0.46:8095/api/newyear/LineFlexMessage?name=${this.firstname_message}&surname=${this.lastname_message}&empid=${this.empid_message }&dept=${this.department_message }&gift= ${giftname_message}&no=${this.draw}&isCancel=false`,null).subscribe({
+          next: res => {
+            console.log("2");
+            var data:any=res;
+            console.log("server:",data);
+          },
+          error: res =>{
+            console.log("error ",res);
+
+          }
+          });
     }, 12400)
 
 	}

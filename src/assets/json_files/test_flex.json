@@ -1,0 +1,168 @@
+
+  {
+    "messages":[
+        {
+            "type":"flex",
+            "altText":"Flex Message",
+            "contents":{
+  "type": "bubble",
+  "hero": {
+    "type": "image",
+    "url": "https://d33wubrfki0l68.cloudfront.net/874dde41bca3a1105fe54a7563a2ade5acf0da12/85e83/_nuxt/img/gift360x360.135e5fe.gif",
+    "animated":true,
+    "size": "full",
+    "aspectRatio": "20:13",
+    "aspectMode": "cover",
+    "position": "relative"
+  },
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "ขอแสดงความยินดี",
+        "weight": "bold",
+        "size": "xl",
+        "wrap": true,
+        "align": "center"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "margin": "lg",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "separator"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "ผู้โชคดี",
+                "flex": 2,
+                "size": "md",
+                "color": "#aaaaaa"
+              },
+              {
+                "type": "text",
+                "text": "คุณทดสอบ ทดสอบ",
+                "size": "md",
+                "flex": 5
+              }
+            ],
+            "spacing": "sm",
+            "margin": "md"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "รหัส",
+                "flex": 2,
+                "color": "#aaaaaa",
+                "size": "md"
+              },
+              {
+                "type": "text",
+                "text": "00000",
+                "flex": 5,
+                "size": "md"
+              }
+            ],
+            "spacing": "sm"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "แผนก",
+                "flex": 2,
+                "size": "md",
+                "color": "#aaaaaa"
+              },
+              {
+                "type": "text",
+                "text": "test",
+                "flex": 5,
+                "size": "md"
+              }
+            ],
+            "spacing": "sm"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "text",
+                "text": "รางวัล",
+                "size": "md",
+                "flex": 2,
+                "color": "#aaaaaa"
+              },
+              {
+                "type": "text",
+                "text": "ตู้เย็น จำนวน 3 รางวัล",
+                "wrap": true,
+                "size": "md",
+                "flex": 5
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "text",
+                "text": "ครั้งที่",
+                "color": "#aaaaaa",
+                "size": "md",
+                "flex": 2
+              },
+              {
+                "type": "text",
+                "text": "1",
+                "wrap": true,
+                "color": "#666666",
+                "size": "md",
+                "flex": 5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "type": "box",
+    "layout": "vertical",
+    "spacing": "sm",
+    "contents": [
+      {
+        "type": "text",
+        "text": "กรุณาแสดงตันยืนยันการรับรางวัลกับเจ้าหน้าที่ หากไม่ทำการยืนยันจะถือเป็นการสละสิทธิ์",
+        "wrap": true
+      },
+      {
+        "type": "spacer",
+        "size": "sm"
+      }
+    ],
+    "flex": 0
+  }
+  }
+        }
+    ]
+  }
+
