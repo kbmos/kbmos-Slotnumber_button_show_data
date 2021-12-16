@@ -1,0 +1,188 @@
+
+<script type="text/javascript" src="https://rawgit.com/Gary-Li/angular-scrollable-table/master/angular-scrollable-table.js"></script>
+<div class="body2">
+  <div class="row">
+    <h1  style="color:yellow; font-weight:bold; font-size: 100px; margin-bottom: 20px; margin-top: 20px;">PVO HAPPY NEW YEAR 2022</h1>
+  </div>
+  <div class="row" >
+    <div class="col-12" style="color: white;">
+      <h2 style="text-align: center; font-size: 40px; margin-top: 10px;">  รางวัล "{{giftname}}" จำนวน "{{qty}}" รางวัล</h2>
+      <h2 style="text-align: center; font-size: 40px;">  จับรางวัลไปแล้ว {{draw}} ครั้ง </h2>
+      <h3 style="text-align: center; font-size: 50px; margin-top: 20px; margin-bottom: 10px;">รหัสพนักงาน</h3>
+      <div class="row d-flex justify-content-center" style="text-align: center; background-color: white;height: 215px; width: 1200px; margin-left: 18%;box-shadow: 0 8px 12px 0 rgb(0, 0, 0), 0 12px 20px 0 rgb(0, 0, 0);border-radius: 20px;  ">
+
+        <div class="part" style="width: 200px;height: 178px;margin-bottom: 0px;margin-top: 20px;">
+          <ul
+
+            [ngClass]="setZero === 'setZero' ? 'Zero':'items1'"
+            [style.transform]="( 'translateY( -' + ( slot_index_1 * 235 ) + 'px )' )">
+            <li style="font-size: 200px; margin-bottom: 150px; margin-top: 50px;"
+              *ngFor="let slot1 of slot_1 ; let i = index ;"
+              class="item"
+              [class.selected]="( i === slot_index_1 )">
+              {{ slot1 }}
+            </li>
+          </ul>
+        </div>
+
+
+        <div class="part" style="width: 200px;height: 178px;margin-bottom: 0px;margin-top: 20px;">
+          <ul
+          [ngClass]="setZero === 'setZero' ? 'Zero':'items2'"
+            [style.transform]="( 'translateY( -' + ( slot_index_2 * 235 ) + 'px )' )">
+            <li style="font-size: 200px; margin-bottom: 150px; margin-top: 50px;"
+              *ngFor="let slot2 of slot_2 ; let i = index ;"
+              class="item"
+              [class.selected]="( i === slot_index_2 )">
+              {{ slot2 }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="part" style="width: 200px;height: 178px;margin-bottom: 0px;margin-top: 20px;">
+          <ul
+          [ngClass]="setZero === 'setZero' ? 'Zero':'items3'"
+            [style.transform]="( 'translateY( -' + ( slot_index_3 * 235 ) + 'px )' )">
+            <li style="font-size: 200px; margin-bottom: 150px; margin-top: 50px;"
+              *ngFor="let slot3 of slot_3 ; let i = index ;"
+              class="item"
+              [class.selected]="( i === slot_index_3 )">
+              {{ slot3 }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="part" style="width: 200px;height: 178px;margin-bottom: 0px;margin-top: 20px;">
+
+          <ul
+          [ngClass]="setZero === 'setZero' ? 'Zero':'items4'"
+            [style.transform]="( 'translateY( -' + ( slot_index_4 * 235 ) + 'px )' )">
+            <li style="font-size: 200px; margin-bottom: 150px; margin-top: 50px;"
+              *ngFor="let slot4 of slot_4 ; let i = index ;"
+              class="item"
+              [class.selected]="( i === slot_index_4 )">
+              {{ slot4 }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="part" style="width: 200px;height: 178px;margin-bottom: 0px;margin-top: 20px;">
+
+          <ul
+          [ngClass]="setZero === 'setZero' ? 'Zero':'items5'"
+            [style.transform]="( 'translateY( -' + ( slot_index_5 * 235 ) + 'px )' )">
+            <li style="font-size: 200px; margin-bottom: 150px; margin-top: 50px;"
+              *ngFor="let slot5 of slot_5 ; let i = index ;"
+              class="item"
+              [class.selected]="( i === slot_index_5 )">
+              {{ slot5 }}
+            </li>
+          </ul>
+        </div>
+        </div>
+        <div class="row">
+
+        <div class="parts">
+          <div class="part2" style="text-align: center;height: 120px;" >
+            <div >
+
+              <h5 style="text-align: center; font-size: 50px;margin-top: 10px; ;" [hidden]="visibleState">ชื่อ-นามสกุล: <span style="font-size: 100px;">{{UserData}}</span> </h5>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h5 [hidden]="visibleState"  style="text-align: center; color: white;font-size: 50px; margin-top: 10px;">แผนก:  {{department}}</h5>
+        </div>
+        <div class="row">
+          <div class="col-7">
+            <div style="text-align: right; margin-top: 10px;">
+              <button class="btn btn-dark  fixed-bottom"  [hidden]="(!hidedeletelasteddraw)&&modalIsOpen" [hidden]="(!hidedeletelasteddraw)&&modalIsOpen2"   [hidden]="hidedeletelasteddraw"  [disabled]="isLoading2" (click)="DeleteLastRecord()" style="margin-left: 100px;margin-bottom: 100px;"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading, 'fa-check': !isLoading}"></i>ผู้โชคดีไม่ยืนยันตัวตน</button>
+              <button class="btn btn-primary fixed-bottom" [hidden]="(!lastItem)&&modalIsOpen" [hidden]="(!lastItem)&&modalIsOpen2" [disabled]="isLoading" [hidden]="lastItem" (click)="generateName()" style="margin-left: 851px;margin-bottom: 100px;"><i class="fa" [ngClass]="{'fa-spin fa-spinner': isLoading, 'fa-check': !isLoading}"></i>กดปุ่มสุ่มรางวัล</button>
+              <button class="btn btn-primary fixed-bottom" [hidden]="(lastItem)&&modalIsOpen" [hidden]="(lastItem)&&modalIsOpen2"  [hidden]="!lastItem" [disabled]="isLoading" (click)="NextReward()"  style="margin-left: 850px;margin-bottom: 100px;"> Next Reward</button>
+
+            </div>
+          </div>
+          <div class="col-5" style="height: 200px;" >
+
+              <img  class="fixed-bottom CodeDemo" [hidden]="modalIsOpen||modalIsOpen2||showalldialog"  [hidden]="showalldialog" (click)="showModalDialog()" src="../assets/images/gift-box-icon-png-53.png" alt="xssm"style="width: 280px;margin-bottom: 40px;margin-left:60%"  muted="muted" (mouseover)="focusFunction()" (mouseout)="focusOutFunction()">
+              <img  class="fixed-bottom CodeDemo" [hidden]="modalIsOpen||modalIsOpen2" [ngClass]="showalldialog == true ? 'last':'notlast'" (click)="showModalDialog2()" src="../assets/images/kisspng-gift-christmas-clip-birthday-present-5b21357b894286.1373089115289030355622.png"  muted="muted" alt="xssm" style="width: 400px;height: 400px; margin-bottom: px;margin-left:75%" (mouseover)="focusFunction2()" (mouseout)="focusOutFunction2()" >
+
+
+          </div>
+
+        </div>
+
+
+
+        <div class="root">
+          <lib-modal-dialog [(isOpen)]="modalIsOpen" title="รางวัลผู้โชคดี">
+            <div class="modal-content">
+              <h2>  รางวัล "{{giftname}}" จำนวน "{{qty}}" รางวัล</h2>
+              <h2>  จับรางวัลไปแล้ว {{draw}} ครั้ง </h2>
+              <div class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 650px;">
+                <table mdbTable mdbTableScroll scrollY="true" bordered="true" class="table table-dark" style="font-size: 30px;">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let head of headElements" scope="col" >{{head}} </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr mdbTableCol *ngFor="let el of userLucky_List let i = index;">
+
+                      <th scope="row">{{i+1}}</th>
+                      <td>{{el.empid}}</td>
+                      <td>{{el.name}}</td>
+                      <td>{{el.surname}}</td>
+                      <td>{{el.dept}}</td>
+                      <td>{{el.draw}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </lib-modal-dialog>
+
+        </div>
+
+      </div>
+      <div class="root">
+        <!-- <button  (click)="showModalDialog()" >
+        </button> -->
+      <lib-modal-dialog [(isOpen)]="modalIsOpen2" title="รางวัลผู้โชคดี">
+        <div class="modal-content">
+          <h2>  รางวัล ผู้โชคดีทั้งหมด {{allgifts}} รางวัล</h2>
+          <div class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 700px;">
+            <table  class="table table-dark" style="font-size: 30px;">
+              <thead>
+                <tr>
+                  <th class="sticky" *ngFor="let head of headElements2" scope="col" >{{head}} </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr mdbTableCol *ngFor="let el of alluserluckylist let i = index;">
+
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{el.empid}}</td>
+                  <td>{{el.name}}</td>
+                  <td>{{el.surname}}</td>
+                  <td>{{el.dept}}</td>
+                  <td>{{el.draw_time}}</td>
+                  <td>{{el.gift_name}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </lib-modal-dialog>
+
+    </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+

@@ -1,0 +1,230 @@
+// This is the height of each item in the list of Descriptions and Things. The rendering
+// works by offsetting each list by some negative-multiple of this value (see HTML).
+@itemHeight: 85px ;
+
+body {
+  background-color: green;
+}
+:host {
+	box-sizing: border-box ;
+	display: flex ;
+	flex-direction: column ;
+	font-size: 18px ;
+	min-height: 100vh ;
+	padding: 30px 30px 30px 30px ;
+}
+
+.iconset{
+  padding: 000px 0px 0px 1000px ;
+  width: 10% ;
+  height: 10%;
+
+}
+.popup-content{
+  text-align: center;
+  margin: 20px;
+}
+
+.modal-content{
+  padding: 10px;
+  margin: 0px;
+  // text-align: center;
+  background: #eee;
+}
+
+lib-drop-down{
+  margin: 10px;
+}
+h1 {
+	flex: 0 0 auto ;
+	font-size: 50px ;
+}
+.showCurrentstage{
+  font-size: 35;
+}
+h3 {
+  color: #ffffff;
+  padding: 0px 0px 0px 00px ;
+}
+.test{
+  font-size: 40px;
+}
+.test2{
+  font-size: 40px;
+}
+.parts {
+	// flex-direction: column ;
+	margin: auto auto auto auto ;
+  padding: 0px 0px 0px 0px;
+
+	@media screen and ( min-width: 1175px ) {
+		flex-direction: row ;
+	}
+}
+.notlast{
+  width: 50%;
+  height: 160%;
+
+  margin-left: 5%;
+
+}
+.last{
+  width: 50%;
+  height: 160%;
+  margin-left: 40%;
+
+}
+
+.part {
+	height: @itemHeight ;
+
+	margin: auto auto auto auto ;
+	overflow: hidden ;
+	text-align: center ;
+  color: #000;
+	@media screen and ( min-width: 1175px ) {
+		margin: 10px 10px 10px 10px ;
+		text-align: center ;
+		width: 100% ;
+
+		&:first-child {
+			text-align: center ;
+		}
+	}
+}
+.sticky{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+.my-custom-scrollbar {
+  position: relative;
+  height: 200px;
+  overflow: auto;
+  }
+  .table-wrapper-scroll-y {
+  display: block;
+  }
+.table{
+    // width:300px;
+    // height: 1200px;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+}
+.part2 {
+	height: @itemHeight ;
+	margin: 0 0 0 0 ;
+	overflow: hidden ;
+  color: #ffffff;
+}
+.Zero{
+  list-style-type: none ;
+	margin: 0px 0px 0px 0px ;
+	padding: 0px 0px 0px 0px ;
+  transition: transform 1s ease-in-out 0s;
+}
+.items1 {
+	list-style-type: none ;
+	margin: 0px 0px 0px 0px ;
+	padding: 0px 0px 0px 0px ;
+  	transition: transform 4s ease-in-out 0.1s;
+}
+.items2 {
+	list-style-type: none ;
+	margin: 0px 0px 0px 0px ;
+	padding: 0px 0px 0px 0px ;
+	// transition: transform 10000ms ease-in-out ;
+  	transition: transform 6s ease-in-out 0.2s;
+	//transition-timing-function: ease-in-out 0.8s;
+	//transition-duration: 3s;
+}
+
+.items3 {
+	list-style-type: none ;
+	margin: 0px 0px 0px 0px ;
+	padding: 0px 0px 0px 0px ;
+  	transition: transform 8s ease-in-out 0.3s;
+}
+
+.items4 {
+	list-style-type: none ;
+	margin: 0px 0px 0px 0px ;
+	padding: 0px 0px 0px 0px ;
+
+  	transition: transform 10s ease-in-out 0.4s;
+}
+
+.items5 {
+	list-style-type: none ;
+	margin: 0px 0px 0px 0px ;
+	padding: 0px 0px 0px 0px ;
+  	transition: transform 12s ease-in-out 0.5s;
+
+}
+
+.item {
+	font-size: 50px ;
+	font-weight: 2000 ;
+  color: red;
+  font-family: 'Cinzel', serif;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	height: @itemHeight ;
+	line-height: @itemHeight ;
+	margin: 0px 0px 0px 0px ;
+	padding: 0px 0px 0px 0px ;
+
+	@media screen and ( min-width: 550px ) {
+		font-size: 100px ;
+	}
+
+	@media screen and ( min-width: 675px ) {// ขนาด ฟ้อน
+		font-size:100px ;
+	}
+
+	&:not(.selected) {
+		user-select: none ;
+			-moz-user-select: none ;
+			-webkit-user-select: none ;
+	}
+}
+
+
+
+.length {
+	color: #999999 ;
+	font-size: 16px ;
+	line-height: 21px ;
+	margin: 20px 0px 20px 0px ;
+	text-align: center ;
+}
+
+.btn-primary {
+	background-color: #ff3366 ;
+	border-radius: 8px 8px 8px 8px ;
+	border-width: 0px 0px 0px 0px ;
+	color: #ffffff ;
+	cursor: pointer ;
+	font-size: 20px ;
+	font-weight: 400 ;
+	letter-spacing: 0.5px ;
+	padding: 20px 30px 20px 30px ;
+
+
+}
+.CodeDemo {
+
+  cursor: pointer;
+}
+.btn-dark {
+
+	border-radius: 8px 8px 8px 8px ;
+	border-width: 0px 0px 0px 0px ;
+	color: #ffffff ;
+	cursor: pointer ;
+	font-size: 20px ;
+	font-weight: 400 ;
+	letter-spacing: 0.5px ;
+	padding: 20px 30px 20px 30px ;
+
+
+}

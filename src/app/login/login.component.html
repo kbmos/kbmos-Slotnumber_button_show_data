@@ -1,0 +1,11 @@
+<div class="card">
+  <div class="card-body">
+      <img id="logo" src='../../assets/images/LOGO.png' />
+      <br>
+      <input type="text" class="form-control" [(ngModel)]="user" placeholder="กรุณาป้อนผู้ใช้งาน" />
+      <br>
+      <input type="password" class="form-control" [(ngModel)]="pass" placeholder="กรุณาป้อนรหัสผ่าน" />
+      <br>
+      <button type="button" (click)="login()" class="btn btn-block btn-primary">Log In</button>
+  </div>
+</div>
